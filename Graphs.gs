@@ -17,19 +17,19 @@ function graph2(){
   sheet.clear()
   var filters = [["Status",["Active"]]]
   createPivotTable(dataSheet,sheet,rowNames=["Register Servicer","Ticker"], valueNames=[["Ticker","COUNTUNIQUE"]], filters=filters)
-  var chartType = Charts.ChartType.COLUMN
-  var chart = createChart(sheet,name,"Register Servicer","Number of Programs",chartType)
-  createNewPage(name, chart)
+  var range = sheet.getRange("A1").getDataRegion()
+  var dataValues = sheet.getRange(1,2,range.getHeight(),range.getWidth()).getValues()
+  createNewPage(name, chart=null, dataValues)
 }
 
 function graph3(){
-  var sheet = getSheet(name="Amount Outstanding per Program per Day")
+  name="Amount Outstanding per Program per Day"
+  var sheet = getSheet(name)
   var dataSheet = getSheet("Securities")
   sheet.clear()
-  createPivotTable(dataSheet,sheet,rowNames=["Ratio Effective Date"], valueNames=[["Amount Outstanding","SUM"],["Ticker","COUNTUNIQUE"]])
-  var name = "Headroom and Amount Outstanding per Program"
+  createPivotTable(dataSheet,sheet,rowNames=["Ratio Effective Date"], valueNames=[["Amount Outstanding","SUM"]],filter=[],columns=["Ticker"])
   var chartType = Charts.ChartType.LINE
-  var chart = createChart(sheet,name,"Time","Amount",chartType)
+  var chart = createChart(sheet,name,"Time","Amount",chartType,numHeaders=2)
   createNewPage(name, chart)
 }
 function graph4(){

@@ -26,21 +26,28 @@ function removeSlide(name="Active Programs per Register Servicer",slides){
     }
   }
 }
-function createNewPage(name="Active Programs per Register Servicer",chart=null){
+function graph2(){}
+function createNewPage(name="Active Programs per Register Servicer",chart=null,table=null){
   var slides = getPresentation().getSlides()
   indx = slideData(name)
   console.log(indx)
   removeSlide(name,slides)
   var slide = insertSlideAtIndx(indx)
   updateTitle(name,slide)
+  console.log(chart)
   if (chart==null){
     var dataSheet = getSheet(name)
     var charts = dataSheet.getCharts()
     if (charts.length>0){
       addChartToSlides(charts[0],slide)
     }
+  }else{
+    addChartToSlides(chart,slide)
   }
-  addChartToSlides(chart,slide)
+  if (table != null){
+    addTableToSlide(table,slide)
+  }
+  
 }
 
 function createText(text,slideNumber){
@@ -58,6 +65,8 @@ function getTitleShape(slide){
     var shape = placeholder.asShape()
     return shape
   }
+
+
 }
 function getTitleText(slide){
   var shape = getTitleShape(slide)
@@ -81,4 +90,16 @@ function addChartToSlides(chart,slide){
       size.width,
       size.height);   
 }
+
+function addTableToSlide(values,slide){
+  var rows = values.length;
+  var columns = values[0].length;
+  table = slide.insertTable(rows,columns)
+  for (var r = 0; r < rows; r++) {
+    for (var c = 0; c < columns; c++) {
+      table.getCell(r, c).getText().setText(values[r][c]);
+    }
+  }
+}
+
 
