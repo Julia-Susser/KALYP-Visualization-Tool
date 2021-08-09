@@ -17,13 +17,13 @@ function removeSlide(name="Active Programs per Register Servicer",slides){
   var slides = getPresentation().getSlides()
   for (var i=0; i<slides.length; i++){
     slide = slides[i]
-    // var text = getTitleShape(slide)
-    // if (text != undefined){
-    //   text = text.getText()
-    //   if (text.find(name).length>0){
-    //     slide.remove()
-    //   }
-    // }
+    var text = getTitleShape(slide)
+    if (text != undefined){
+      text = text.getText()
+      if (text.find(name).length>0){
+        slide.remove()
+      }
+    }
     
   }
 }

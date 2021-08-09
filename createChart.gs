@@ -24,7 +24,7 @@ function createChart(sheet,title,xaxis,yaxis,chartType,ranges=null){
       firstcol = ranges[r][0]
       lastcol = ranges[r][1]
       console.log(firstcol)
-      chart = chart.addRange(sheet.getRange(1,firstcol,6,lastcol))
+      chart = chart.addRange(sheet.getRange(1,firstcol,height,lastcol))
     }
   }else{
     chart = chart.addRange(range)

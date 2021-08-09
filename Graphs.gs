@@ -40,8 +40,8 @@ function graph4(){
   createPivotTable(dataSheet,sheet,rowNames=["Ticker"], valueNames=[["Amount Outstanding","SUM"],["Amount SEC approved","MAX"]])
   var name = "Headroom and Amount Outstanding per Program"
   var chartType = Charts.ChartType.COLUMN
-  Headroom()
-  var chart = createChart(sheet,name,"Ticker","Amount",chartType,ranges=[[1,2]])
+  Headroom(sheet)
+  var chart = createChart(sheet,name,"Ticker","Amount",chartType,ranges=[[1,2],[4,4]])
   createNewPage(name, chart)
 }
 
@@ -60,10 +60,10 @@ function graph5(){
 }
 
 
-function Headroom(){
-  var dataSheet = getSheet(name="Headroom and Amount Outstanding per Program")
+function Headroom(dataSheet){
   var range = dataSheet.getRange("A1").getDataRegion()
   height = range.getHeight()
   var cell = dataSheet.getRange("D2:D"+height);
+  cell.getRange("D1").setValue("Headroom")
   cell.setFormula("=MINUS(C2:C"+height+",B2:B"+height+")")
 }
