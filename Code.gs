@@ -6,6 +6,7 @@ function onOpen() {
       .addItem('Get Securities Data', 'GetSecuritiesData')
       .addItem('# of Active Programs per Register Servicer', 'graph1')
       .addItem('Headroom and Amount Outstanding per Program', 'graph4')
+      .addItem('Amount Outstanding per Program per Day', 'graph3')
       .addToUi();
   
 }

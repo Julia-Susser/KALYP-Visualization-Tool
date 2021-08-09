@@ -29,6 +29,7 @@ function removeSlide(name="Active Programs per Register Servicer",slides){
 function createNewPage(name="Active Programs per Register Servicer",chart=null){
   var slides = getPresentation().getSlides()
   indx = slideData(name)
+  console.log(indx)
   removeSlide(name,slides)
   var slide = insertSlideAtIndx(indx)
   updateTitle(name,slide)
