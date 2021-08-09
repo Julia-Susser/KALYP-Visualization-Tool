@@ -17,13 +17,13 @@ function removeSlide(name="Active Programs per Register Servicer",slides){
   var slides = getPresentation().getSlides()
   for (var i=0; i<slides.length; i++){
     slide = slides[i]
-    // var text = getTitleShape(slide)
-    // if (text != undefined){
-    //   text = text.getText()
-    //   if (text.find(name).length>0){
-    //     slide.remove()
-    //   }
-    // }
+    var text = getTitleShape(slide)
+    if (text != undefined){
+      text = text.getText()
+      if (text.find(name).length>0){
+        slide.remove()
+      }
+    }
     
   }
 }
@@ -37,11 +37,9 @@ function graph2(){}
 function createNewPage(name="Active Programs per Register Servicer",chart=null,table=null){
   var slides = getPresentation().getSlides()
   indx = slideData(name)
-  console.log(indx)
   removeSlide(name,slides)
   var slide = insertSlideAtIndx(indx)
   updateTitle(name,slide)
-  console.log(chart)
   if (chart==null){
     var dataSheet = getSheet(name)
     var charts = dataSheet.getCharts()

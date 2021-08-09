@@ -1,3 +1,4 @@
+//# of Active Programs per Register Servicer
 function graph1(){
   var sheet = getSheet(name="# of Active Programs per Register Servicer")
   var dataSheet = getSheet("Securities")
@@ -10,6 +11,7 @@ function graph1(){
   createNewPage(name, chart)
 }
 
+//List of Active Programs per Register Servicer
 function graph2(){
   name ="List of Active Programs per Register Servicer"
   var sheet = getSheet(name)
@@ -22,45 +24,63 @@ function graph2(){
   createNewPage(name, chart=null, dataValues)
 }
 
+//# of Shares Outstanding per program
 function graph3(){
-  name="Amount Outstanding per Program per Day"
+  name="# of Shares Outstanding per program (Over Time)"
   var sheet = getSheet(name)
   var dataSheet = getSheet("Securities")
   sheet.clear()
-  createPivotTable(dataSheet,sheet,rowNames=["Ratio Effective Date"], valueNames=[["Amount Outstanding","SUM"]],filter=[],columns=["Ticker"])
+  createPivotTable(dataSheet,sheet,rowNames=["Ratio Effective Date"], valueNames=[["Amount Outstanding","AVERAGE"]],filter=[],columns=["Ticker"])
   var chartType = Charts.ChartType.LINE
   var chart = createChart(sheet,name,"Time","Amount",chartType)
   createNewPage(name, chart)
 }
-function graph4(){
-  var sheet = getSheet(name="Headroom and Amount Outstanding per Program")
-  var dataSheet = getSheet("Securities")
-  sheet.clear()
-  // var filters = [["Status",["Active"]]]
-  createPivotTable(dataSheet,sheet,rowNames=["Ticker"], valueNames=[["Amount Outstanding","SUM"],["Amount SEC approved","MAX"]])
-  var name = "Headroom and Amount Outstanding per Program"
-  var chartType = Charts.ChartType.COLUMN
-  Headroom(sheet)
-  var chart = createChart(sheet,name,"Ticker","Amount",chartType,ranges=[[1,2],[4,4]])
-  createNewPage(name, chart)
+
+
+//# of Headroom Threshold per program
+//# of Approved Amount per program
+// function graph4(){
+//   var sheet = getSheet(name="Headroom and Amount Outstanding per Program")
+//   var dataSheet = getSheet("Securities")
+//   sheet.clear()
+//   // var filters = [["Status",["Active"]]]
+//   createPivotTable(dataSheet,sheet,rowNames=["Ticker"], valueNames=[["Amount Outstanding","LAST"],["Amount SEC approved","MAX"]])
+//   var name = "Headroom and Amount Outstanding per Program"
+//   var chartType = Charts.ChartType.COLUMN
+//   HeadroomGraph4(sheet)
+//   var chart = createChart(sheet,name,"Ticker","Amount",chartType,numHeaders=1,ranges=[[1,2],[4,4]])
+//   createNewPage(name, chart)
+// }
+
+
+
+//# of Headerooom per program (overtime)
+// function graph5(){
+//   name="# of Headroom per program (Over Time)"
+//   var sheet = getSheet(name)
+//   var dataSheet = getSheet("Securities")
+//   sheet.clear()
+//   //["Amount Outstanding","AVERAGE"],["Amount SEC approved","AVERAGE"],
+//   var chartType = Charts.ChartType.LINE 
+//   createPivotTable(dataSheet,sheet,rowNames=["Ratio Effective Date"], valueNames=[["Headroom","AVERAGE"]],filter=[],columns=["Ticker"])
+//   var chart = createChart(sheet,name,"Ticker","Amount",chartType,numHeaders=2)
+//   createNewPage(name, chart)
+// }
+
+function HeadroomSecurities(){
+  name="Securities"
+  var dataSheet = getSheet(name)
+  height = dataSheet.getDataRange().getHeight()
+  var cell = dataSheet.getRange("X2:X"+height);
+  dataSheet.getRange("X1").setValue("Headroom")
+  cell.setFormula("=MINUS(I2:I"+height+",H2:H"+height+")")
 }
 
-
-function graph5(){
-  name="# of Headroom per Program per Day"
-  var sheet = getSheet(name)
-  var dataSheet = getSheet("Securities")
-  sheet.clear()
-
-  console.log(headRoom)
-  createPivotTable(dataSheet,sheet,rowNames=["Ratio Effective Date"], valueNames=[[headRoom,"SUM"]],filter=[],columns=["Ticker"])
-  var chartType = Charts.ChartType.LINE
-  var chart = createChart(sheet,name,"Time","Amount",chartType,ranges=[1,3])
-  createNewPage(name, chart)
+function DOUBLE(input){
+  return input* 2
 }
 
-
-function Headroom(dataSheet){
+function HeadroomGraph4(dataSheet){
   var range = dataSheet.getRange("A1").getDataRegion()
   height = range.getHeight()
   var cell = dataSheet.getRange("D2:D"+height);

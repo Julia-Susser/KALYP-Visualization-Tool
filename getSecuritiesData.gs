@@ -12,6 +12,7 @@ function GetSecuritiesData(){
     .setValues(data);
   
   sheet.autoResizeColumns(1, range.getWidth());
+  HeadroomSecurities()
 }
 
 
