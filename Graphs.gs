@@ -51,7 +51,7 @@ function graph5(){
   var sheet = getSheet(name)
   var dataSheet = getSheet("Securities")
   sheet.clear()
-  var headRoom = Headroom()
+
   console.log(headRoom)
   createPivotTable(dataSheet,sheet,rowNames=["Ratio Effective Date"], valueNames=[[headRoom,"SUM"]],filter=[],columns=["Ticker"])
   var chartType = Charts.ChartType.LINE
@@ -64,6 +64,6 @@ function Headroom(dataSheet){
   var range = dataSheet.getRange("A1").getDataRegion()
   height = range.getHeight()
   var cell = dataSheet.getRange("D2:D"+height);
-  cell.getRange("D1").setValue("Headroom")
+  dataSheet.getRange("D1").setValue("Headroom")
   cell.setFormula("=MINUS(C2:C"+height+",B2:B"+height+")")
 }

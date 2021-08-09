@@ -13,6 +13,9 @@
     "macros": [{
       "menuName": "How to Stack",
       "functionName": "HowtoStack"
+    }, {
+      "menuName": "Untitled Macro",
+      "functionName": "UntitledMacro"
     }]
   }
 }
