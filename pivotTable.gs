@@ -50,13 +50,13 @@ function createPivotTable(dataSheet,pivotTableSheet,rowNames=[], valuesNames=[],
 
 
 
-function createPivotTable2(){
-  var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-  var anchorCell = spreadsheet.getSheets()[0].getRange('A1');
-  var dataSource = spreadsheet.getDataSources();
-  console.log(dataSource)
-  console.log(dataSource)
+// function createPivotTable2(){
+//   var spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+//   var anchorCell = spreadsheet.getSheets()[0].getRange('A1');
+//   var dataSource = spreadsheet.getDataSources();
+//   console.log(dataSource)
+//   console.log(dataSource)
 
-  var pivotTable = dataSource.createDataSourcePivotTableOnNewSheet();
+//   var pivotTable = dataSource.createDataSourcePivotTableOnNewSheet();
   
-}
+// }

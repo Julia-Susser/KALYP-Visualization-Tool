@@ -1,5 +1,5 @@
 function graph1(){
-  var sheet = getSheet(name="Active Programs per Register Servicer")
+  var sheet = getSheet(name="# of Active Programs per Register Servicer")
   var dataSheet = getSheet("Securities")
   sheet.clear()
   var filters = [["Status",["Active"]]]

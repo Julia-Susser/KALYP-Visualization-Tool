@@ -1,22 +1,4 @@
-function createSheet(name){
-  var ss = SpreadsheetApp.getActive();
-  var newSheet = ss.insertSheet();
-  newSheet.setName(name)
-}
 
-function getSheetFromIndx(indx){
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[indx];
-  return sheet
-}
-
-function getSheetFromName(name){
-  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(name);
-  return sheet
-}
-
-function getActiveSheet(){
-  return SpreadsheetApp.getActiveSheet();
-}
 
 function getValuesByNumber(sheet,row,col,numRow,numCol){
   var range = sheet.getRange(row,col,numRow,numCol);
@@ -24,7 +6,7 @@ function getValuesByNumber(sheet,row,col,numRow,numCol){
   return values
 }
 function getValuesByQuery(sheet, range){
-  var range = sheet.getRange(range); //"Invoices!A1:D4"
+  var range = sheet.getRange(range); 
   var values = range.getValues();
   return values
 }
@@ -40,7 +22,8 @@ function getSheetValues(sheet){
 
 
 function getColNames(sheet){
-  var data = getValuesByQuery(sheet,"A1:1")[0];
+  var range = sheet.getRange("A1:1"); 
+  var data = range.getValues()[0];
   return data;
 }
 

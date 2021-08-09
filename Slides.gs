@@ -1,6 +1,6 @@
 function slideData(name){
   var data = {
-  "Active Programs per Register Servicer": 1,
+  "# of Active Programs per Register Servicer": 1,
 };
   return data[name]
 }
