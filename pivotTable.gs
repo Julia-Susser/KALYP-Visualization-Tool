@@ -18,18 +18,16 @@ function createPivotTable(dataSheet,pivotTableSheet,rowNames=[], valuesNames=[],
     sourceColumnOffset: getColIndxFromName(dataSheet,colName),
     sortOrder: "ASCENDING"
   } } );;
-  pivotTableParams.values = valuesNames.map( (value,indx) => { return {
+  pivotTableParams.values = valuesNames.map( (value) => { return {
     summarizeFunction: value[1],
     sourceColumnOffset: getColIndxFromName(dataSheet,value[0])
   } } );
 
   criteria = {};
-  console.log(filters)
   for (var i=0;i<filters.length;i++){
     criteria[getColIndxFromName(dataSheet,filters[i][0])] = {visibleValues: filters[i][1]}
   }
   pivotTableParams.criteria = criteria
-  console.log(criteria)
 
   var pivotTableSheetId = pivotTableSheet.getSheetId();
   var request = {

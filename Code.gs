@@ -4,7 +4,8 @@ function onOpen() {
   SpreadsheetApp.getUi() // Or DocumentApp or SlidesApp or FormApp.
       .createMenu('Menu')
       .addItem('Get Securities Data', 'GetSecuritiesData')
-      .addItem('Active Programs per Register Servicer', 'graph1')
+      .addItem('# of Active Programs per Register Servicer', 'graph1')
+      .addItem('Headroom and Amount Outstanding per Program', 'graph4')
       .addToUi();
   
 }

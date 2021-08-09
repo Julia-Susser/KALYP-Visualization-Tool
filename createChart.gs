@@ -1,6 +1,5 @@
 function createChart(sheet,name,chartType){
   var range = sheet.getRange("A1").getDataRegion()
-  var range = sheet.getRange(2,1,range.getHeight(),range.getWidth())
   if (sheet.getCharts().length>0){
     var chart = sheet.getCharts()[0];
     chart = chart.modify()
@@ -15,6 +14,8 @@ function createChart(sheet,name,chartType){
     .setChartType(chartType)
     .addRange(range)
     .setOption('title', name)
+    .setNumHeaders(1)
+    .setStacked()
     .setHiddenDimensionStrategy(Charts.ChartHiddenDimensionStrategy.IGNORE_COLUMNS)
     .setPosition(5, 5, 0, 0)
     .build()
