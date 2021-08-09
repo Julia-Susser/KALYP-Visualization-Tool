@@ -40,12 +40,30 @@ function graph4(){
   createPivotTable(dataSheet,sheet,rowNames=["Ticker"], valueNames=[["Amount Outstanding","SUM"],["Amount SEC approved","MAX"]])
   var name = "Headroom and Amount Outstanding per Program"
   var chartType = Charts.ChartType.COLUMN
-  var chart = createChart(sheet,name,"Ticker","Amount",chartType)
+  Headroom()
+  var chart = createChart(sheet,name,"Ticker","Amount",chartType,ranges=[[1,2]])
   createNewPage(name, chart)
 }
 
-function Headroom(){
+
+function graph5(){
+  name="# of Headroom per Program per Day"
+  var sheet = getSheet(name)
   var dataSheet = getSheet("Securities")
-  var cell = dataSheet.getRange("A:A");
-  cell.setFormula("=I:I-H:H"); 
+  sheet.clear()
+  var headRoom = Headroom()
+  console.log(headRoom)
+  createPivotTable(dataSheet,sheet,rowNames=["Ratio Effective Date"], valueNames=[[headRoom,"SUM"]],filter=[],columns=["Ticker"])
+  var chartType = Charts.ChartType.LINE
+  var chart = createChart(sheet,name,"Time","Amount",chartType,ranges=[1,3])
+  createNewPage(name, chart)
+}
+
+
+function Headroom(){
+  var dataSheet = getSheet(name="Headroom and Amount Outstanding per Program")
+  var range = dataSheet.getRange("A1").getDataRegion()
+  height = range.getHeight()
+  var cell = dataSheet.getRange("D2:D"+height);
+  cell.setFormula("=MINUS(C2:C"+height+",B2:B"+height+")")
 }

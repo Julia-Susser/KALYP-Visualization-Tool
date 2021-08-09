@@ -1,4 +1,4 @@
-
+                              
 
 function onOpen() {
   SpreadsheetApp.getUi() // Or DocumentApp or SlidesApp or FormApp.
@@ -7,6 +7,7 @@ function onOpen() {
       .addItem('# of Active Programs per Register Servicer', 'graph1')
       .addItem('Headroom and Amount Outstanding per Program', 'graph4')
       .addItem('Amount Outstanding per Program per Day', 'graph3')
+      .addItem('# of Headroom per Program per Day', 'graph5')
       .addToUi();
   
 }

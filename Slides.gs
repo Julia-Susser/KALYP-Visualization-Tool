@@ -28,9 +28,9 @@ function removeSlide(name="Active Programs per Register Servicer",slides){
   }
 }
 function hmm(){
-  var slide = getPresentation().getSlides()[1]
-  var charts = slide.getSheetsCharts;
-  console.log(charts)
+  var slide = getPresentation().getSlides()[2]
+  var chart = slide.getSheetsCharts()[0];
+  console.log(chart.getTitle())
 }
 
 function graph2(){}
