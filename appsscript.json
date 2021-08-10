@@ -34,6 +34,9 @@
     }, {
       "menuName": "calculated field",
       "functionName": "calculatedfield"
+    }, {
+      "menuName": "max date",
+      "functionName": "maxdate"
     }]
   }
 }

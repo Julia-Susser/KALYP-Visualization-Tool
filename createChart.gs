@@ -2,7 +2,7 @@ function graph4(){}
 //https://developers.google.com/apps-script/chart-configuration-options
 
 function createChart(sheet,title,xaxis,yaxis,chartType,numHeaders=1,ranges=null){
-  var range = sheet.getRange("A1").getDataRegion()
+  var range = sheet.getDataRange()
   height = range.getHeight()
   
   if (sheet.getCharts().length>0){

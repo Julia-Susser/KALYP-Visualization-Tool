@@ -30,7 +30,7 @@ function graph3(){
   var sheet = getSheet(name)
   var dataSheet = getSheet("Securities")
   sheet.clear()
-  createPivotTable(dataSheet,sheet,rowNames=["Ratio Effective Date"], valueNames=[["Amount Outstanding","AVERAGE"]],filter=[],columns=["Ticker"])
+  createPivotTable(dataSheet,sheet,rowNames=["Ratio Effective Date"], valueNames=[["Amount Outstanding","AVERAGE"]],filters=[],columns=["Ticker"])
   var chartType = Charts.ChartType.LINE
   var chart = createChart(sheet,name,"Time","Amount",chartType,numHeader=2)
   createNewPage(name, chart)
@@ -67,49 +67,31 @@ function graph6(){
   var name = "# of Headroom Threshold and Amount SEC Approved per program"
   var sheet = getSheet(name)
   var dataSheet = getSheet("Securities")
-  dataSheet.getRange('M:M').activate();
-  dataSheet.sort(13, false);
-  // var spreadsheet = SpreadsheetApp.getActive();
-  // spreadsheet.getRange('Z3').activate()
-  // .setFormula('=FILTER(A2:N26, M2:M26 = M2)');
-
-  var sheetTickers = getSheet("List of Active Programs")
-  createPivotTable(dataSheet,sheetTickers,rowNames=["Ticker"],valuesNames=[["ISIN","COUNTUNIQUE"]])
-  tickers = sheetTickers.getRange(2,1,sheetTickers.getLastRow(),1).getValues()
+  dataSheet.getRange('AA6').activate();
+  dataSheet.getCurrentCell().setFormula('=MAX(M:M)');
+  dataSheet.getActiveRangeList().setNumberFormat('M/d/yyyy');
+  date = dataSheet.getCurrentCell().getValue()
+  month = parseInt(date.toISOString().substring(5,7))
+  day = parseInt(date.toISOString().substring(8,10))
+  year = date.toISOString().substring(0,4)
+  date = month+'/'+day+'/'+year
+  var filters = [["Ratio Effective Date",[date]]]
+  createPivotTable(dataSheet,sheet,rowNames=["Ticker"],valuesNames=[["Amount Outstanding","AVERAGE"],["Headroom","AVERAGE"],["Amount SEC approved","AVERAGE"]],filters=filters)
+  values = sheet.getDataRange().getValues()
   
-  
-  values = dataSheet.getDataRange().getValues()
-  tickerIndx = getColIndxFromName(dataSheet,"Ticker")
-  dateIndx = getColIndxFromName(dataSheet,"Ratio Effective Date")
-  headroomIndx = getColIndxFromName(dataSheet,"Headroom")
-  secIndx = getColIndxFromName(dataSheet,"Amount SEC approved")
-  outstandingIndx = getColIndxFromName(dataSheet,"Amount Outstanding")
-  oldest_date = values[1][dateIndx].toISOString().substring(0,10)
-  tickers = tickers.map((ticker)=>{
-    ticker = ticker[0]
-    for (var i=1;i<values.length;i++){
-      newDate = values[i][dateIndx].toISOString().substring(0,10)
-      if (newDate!=oldest_date){
-        return ["",ticker,"","",""]
-      }
-      
-      if (values[i][tickerIndx]==ticker){
-        return [newDate,ticker,values[i][outstandingIndx],values[i][headroomIndx],values[i][secIndx]]
-      }
-      
-      
-    }
-  })
-  tickers.unshift(["Date","Ticker","Amount Outstanding","Headroom","Amount SEC Approved"])
-
-
-  sheet.getRange(1,1,tickers.length,tickers[0].length).activate().setValues(tickers)
+ 
   var chartType = Charts.ChartType.COLUMN
   var chart = createChart(sheet,name,"Ticker","Amount",chartType,numHeaders=1,ranges=[[2,3]])
-  createNewPage(name, chart, tickers)
+  createNewPage(name, chart, values)
+  
+  
 }
 
 
+
+  // var spreadsheet = SpreadsheetApp.getActive();
+  // spreadsheet.getRange('Z3').activate()
+  // .setFormula('=FILTER(A2:N26, M2:M26 = M2)');
 
 
 

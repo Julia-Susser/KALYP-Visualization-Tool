@@ -11,8 +11,6 @@ function getValuesByQuery(sheet, range){
   return values
 }
 
-//sheet = getActiveSheet();
-//console.log(sheet.getName());
 
 function getSheetValues(sheet){
   var range = sheet.getDataRange();

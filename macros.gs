@@ -146,3 +146,10 @@ function calculatedfield() {
   pivotValue = pivotTable.addCalculatedPivotValue('Calculated Field 1', '=(\'Amount SEC approved\'-\'Amount Outstanding\')');
   pivotGroup = pivotTable.addRowGroup(6);
 };
+
+function maxdate() {
+  var spreadsheet = SpreadsheetApp.getActive();
+  spreadsheet.getRange('AA6').activate();
+  spreadsheet.getCurrentCell().setFormula('=MAX(M:M)');
+  spreadsheet.getActiveRangeList().setNumberFormat('M/d/yyyy');
+};
