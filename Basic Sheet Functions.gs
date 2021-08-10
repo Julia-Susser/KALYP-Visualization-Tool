@@ -1,24 +1,3 @@
-
-
-function getValuesByNumber(sheet,row,col,numRow,numCol){
-  var range = sheet.getRange(row,col,numRow,numCol);
-  var values = range.getValues();
-  return values
-}
-function getValuesByQuery(sheet, range){
-  var range = sheet.getRange(range); 
-  var values = range.getValues();
-  return values
-}
-
-
-function getSheetValues(sheet){
-  var range = sheet.getDataRange();
-  var values = range.getValues();
-  return values
-}
-
-
 function getColNames(sheet){
   var range = sheet.getRange("A1:1"); 
   var data = range.getValues()[0];

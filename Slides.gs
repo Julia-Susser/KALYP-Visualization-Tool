@@ -8,7 +8,7 @@ function graph6(){}
 function slideData(name){
   var data = {
   "# of Active Programs per Register Servicer": {page:1,chart:{left: 200, top: 70, height: 340, width: 400}},
-  "List of Active Programs per Register Servicer":{page:1,table:{left: 10, top: 0, height: 300, width: 150}},
+  "List of Active Programs per Register Servicer":{page:1,table:{left: 10, top: 70, height: 300, width: 150}},
   "# of Shares Outstanding per program":{page:2,chart:{left: 10, top: -50, height: 500, width: 300}},
   "# of Headroom per Program":{page:2,chart:{left: 320, top: -150, height: 500, width: 300}},
   "% Headroom Factor per program":{page:2,chart:{left: 320, top: 150, height: 300, width: 300}},
@@ -24,13 +24,8 @@ function getPresentation(){
   return SlidesApp.openById("1gOuctw3DUeDSEkoi9Y7Lo1Ih1Ty21UIDi291oFGTWKo")
 }
 
-function insertSlideAtIndx(indx=1){
-  var newSlide = getPresentation().insertSlide(indx,SlidesApp.PredefinedLayout.TITLE_ONLY)
-  return newSlide
-}
-
-function removeChartAndTable(name="List of Active Programs per Register Servicer",slides){
-  var slides = getPresentation().getSlides()
+function removeChartAndTable(name,slides){
+  //Go through each slide and remove the chart or table if it has the same name as the one inputted. This is so multiple graphs and tables are not put on the slide. Keep in mind that you can name tables
   for (var i=0; i<slides.length; i++){
     slide = slides[i]
     tables = slide.getTables()
@@ -58,7 +53,7 @@ function removeChartAndTable(name="List of Active Programs per Register Servicer
   }
 }
 
-function createNewPage(name="Active Programs per Register Servicer",chart=null,table=null){
+function createNewPage(name,chart=null,table=null){
   var slides = getPresentation().getSlides()
   indx = slideData(name).page
   removeChartAndTable(name,slides)
@@ -70,37 +65,6 @@ function createNewPage(name="Active Programs per Register Servicer",chart=null,t
     table = addTableToSlide(table,slide,name)
   }
   
-}
-
-function createText(text,slideNumber){
-  var slide = getPresentation().getSlides()[slideNumber]
-  var shape = slide.insertShape(SlidesApp.ShapeType.TEXT_BOX, 100, 200, 300, 60);
-  var textRange = shape.getText();
-  textRange.setText(text);
-  textRange.getTextStyle().setFontSize(20)
-  shape.setLeft(50).setTop(30).setWidth(1000).setHeight(60)
-}
-
-function getTitleShape(slide){
-  var placeholder = slide.getPlaceholder(SlidesApp.PlaceholderType.TITLE);
-  if (placeholder!=null){
-    var shape = placeholder.asShape()
-    return shape
-  }
-}
-
-function getTitleText(slide){
-  var shape = getTitleShape(slide)
-  if (shape!=null){
-    return shape.getText().asString()
-  }
-}
-function updateTitle(title, slide){
-  var shape = getTitleShape(slide)
-   if (shape!=null){
-    var textRange = shape.getText();
-    textRange.setText(title);
-   }
 }
 
 function addChartToSlides(chart,slide,name){
