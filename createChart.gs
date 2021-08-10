@@ -23,7 +23,6 @@ function createChart(sheet,title,xaxis,yaxis,chartType,numHeaders=1,ranges=null)
     for (var r=0;r<ranges.length;r++){
       firstcol = ranges[r][0]
       lastcol = ranges[r][1]
-      console.log(firstcol)
       chart = chart.addRange(sheet.getRange(1,firstcol,height,lastcol))
     }
   }else{

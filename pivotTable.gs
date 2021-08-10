@@ -57,8 +57,6 @@ function summarizeFunctions(v){
 function graph4(){}
 
 function createPivotTable(dataSheet,pivotTableSheet,rowNames=[], valuesNames=[],filters=[],columnNames=[]){
-  var spreadsheet = SpreadsheetApp.getActive();
-  spreadsheet.getRange('A1').activate();
   var sourceData = dataSheet.getDataRange()
   pivotTable = pivotTableSheet.getRange('A1').createPivotTable(sourceData);
   for (var i=0;i<valuesNames.length;i++){

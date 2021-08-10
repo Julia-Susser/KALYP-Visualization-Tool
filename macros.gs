@@ -129,3 +129,20 @@ function dividethingy2() {
   spreadsheet.getActiveRange().autoFill(spreadsheet.getRange('Z2:Z28'), SpreadsheetApp.AutoFillSeries.DEFAULT_SERIES);
   spreadsheet.getRange('Z2:Z28').activate();
 };
+
+function calculatedfield() {
+  var spreadsheet = SpreadsheetApp.getActive();
+  spreadsheet.getRange('B2').activate();
+  var sourceData = spreadsheet.getRange('Securities!A1:Z1001');
+  var pivotTable = spreadsheet.getRange('A1').createPivotTable(sourceData);
+  var pivotValue = pivotTable.addCalculatedPivotValue('Calculated Field 1', '=0');
+  var pivotGroup = pivotTable.addRowGroup(6);
+  sourceData = spreadsheet.getRange('Securities!A1:Z1001');
+  pivotTable = spreadsheet.getRange('A1').createPivotTable(sourceData);
+  pivotValue = pivotTable.addCalculatedPivotValue('Calculated Field 1', '=(\'Amount SEC approved\'-\'Amount Outstanding\')');
+  pivotGroup = pivotTable.addRowGroup(6);
+  sourceData = spreadsheet.getRange('Securities!A1:Z1001');
+  pivotTable = spreadsheet.getRange('A1').createPivotTable(sourceData);
+  pivotValue = pivotTable.addCalculatedPivotValue('Calculated Field 1', '=(\'Amount SEC approved\'-\'Amount Outstanding\')');
+  pivotGroup = pivotTable.addRowGroup(6);
+};

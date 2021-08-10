@@ -5,9 +5,11 @@ function onOpen() {
       .createMenu('Menu')
       .addItem('Get Securities Data', 'GetSecuritiesData')
       .addItem('# of Active Programs per Register Servicer', 'graph1')
-      .addItem('Headroom and Amount Outstanding per Program', 'graph4')
-      .addItem('Amount Outstanding per Program per Day', 'graph3')
-      .addItem('# of Headroom per Program per Day', 'graph5')
+      .addItem('List of Active Programs per Register Servicer', 'graph2')
+      .addItem('# of Shares Outstanding per program', 'graph3')
+      .addItem('# of Headroom per Program', 'graph4')
+      .addItem('% Headroom Factor per program', 'graph5')
+      .addItem('# of Headroom Threshold and Amount SEC Approved per program', 'graph6')
       .addToUi();
   
 }

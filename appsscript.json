@@ -31,6 +31,9 @@
     }, {
       "menuName": "divide thingy 2",
       "functionName": "dividethingy2"
+    }, {
+      "menuName": "calculated field",
+      "functionName": "calculatedfield"
     }]
   }
 }
