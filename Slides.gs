@@ -2,14 +2,14 @@ function slideData(name){
   var data = {
   "# of Active Programs per Register Servicer": 1,
 };
-  return data[name]
+  return 1
 }
 
 
 function getPresentation(){
   return SlidesApp.openById("1gOuctw3DUeDSEkoi9Y7Lo1Ih1Ty21UIDi291oFGTWKo")
 }
-function insertSlideAtIndx(indx=2){
+function insertSlideAtIndx(indx=1){
   var newSlide = getPresentation().insertSlide(indx,SlidesApp.PredefinedLayout.TITLE_ONLY)
   return newSlide
 }

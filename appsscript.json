@@ -13,6 +13,24 @@
     "macros": [{
       "menuName": "How to Stack",
       "functionName": "HowtoStack"
+    }, {
+      "menuName": "percenting",
+      "functionName": "percenting"
+    }, {
+      "menuName": "Pivot table Date",
+      "functionName": "PivottableDate"
+    }, {
+      "menuName": "My Macro",
+      "functionName": "MyMacro"
+    }, {
+      "menuName": "Filter",
+      "functionName": "Filter"
+    }, {
+      "menuName": "divide thing",
+      "functionName": "dividething"
+    }, {
+      "menuName": "divide thingy 2",
+      "functionName": "dividethingy2"
     }]
   }
 }
