@@ -37,6 +37,9 @@
     }, {
       "menuName": "max date",
       "functionName": "maxdate"
+    }, {
+      "menuName": "Custom Func",
+      "functionName": "CustomFunc"
     }]
   }
 }

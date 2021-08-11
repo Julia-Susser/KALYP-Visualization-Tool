@@ -1,7 +1,7 @@
 //https://developers.google.com/apps-script/chart-configuration-options
-
+function graph6(){}
 function createChart(sheet,title,xaxis,yaxis,chartType,numHeaders=1,ranges=null){
-  var range = sheet.getDataRange()
+  var range = sheet.getRange("A1").getDataRegion()
   height = range.getHeight()
   //if a chart is already there remove it and add another one
   if (sheet.getCharts().length>0){
@@ -21,14 +21,14 @@ function createChart(sheet,title,xaxis,yaxis,chartType,numHeaders=1,ranges=null)
   //Add specific ranges if the ranges are not null. otherwise use the entire sheet in the table
   if (ranges !=null){
     for (var r=0;r<ranges.length;r++){
-      firstcol = ranges[r][0]
-      lastcol = ranges[r][1]
-      chart = chart.addRange(sheet.getRange(1,firstcol,height,lastcol))
+      console.log(ranges[r])
+      chart = chart.addRange(sheet.getRange(ranges[r]))
     }
   }else{
     chart = chart.addRange(range)
   }
   chart = chart.build()
+  
   sheet.insertChart(chart);
   return chart;
 }

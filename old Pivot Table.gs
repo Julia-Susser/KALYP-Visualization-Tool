@@ -41,11 +41,3 @@ function createPivotTable2(dataSheet,pivotTableSheet,rowNames=[], valuesNames=[]
   Sheets.Spreadsheets.batchUpdate({'requests': [request]}, SpreadsheetApp.getActive().getId());
 }
 
-function summarizeFunctions(v){
-  data = {
-    "SUM":SpreadsheetApp.PivotTableSummarizeFunction.SUM,
-    "COUNTUNIQUE":SpreadsheetApp.PivotTableSummarizeFunction.COUNTUNIQUE,
-    "AVERAGE":SpreadsheetApp.PivotTableSummarizeFunction.AVERAGE
-  }
-  return data[v]
-}

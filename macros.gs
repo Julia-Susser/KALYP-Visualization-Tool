@@ -153,3 +153,21 @@ function maxdate() {
   spreadsheet.getCurrentCell().setFormula('=MAX(M:M)');
   spreadsheet.getActiveRangeList().setNumberFormat('M/d/yyyy');
 };
+
+function CustomFunc() {
+  var spreadsheet = SpreadsheetApp.getActive();
+  spreadsheet.getRange('A5').activate();
+  var sourceData = spreadsheet.getRange('Securities!A1:AB1523');
+  var pivotTable = spreadsheet.getRange('A1').createPivotTable(sourceData);
+  var pivotValue = pivotTable.addCalculatedPivotValue('Calculated Field 1', '=0');
+  var pivotGroup = pivotTable.addRowGroup(4);
+  sourceData = spreadsheet.getRange('Securities!A1:AB1523');
+  pivotTable = spreadsheet.getRange('A1').createPivotTable(sourceData);
+  pivotValue = pivotTable.addCalculatedPivotValue('Calculated Field 1', '=\'Amount Outstanding\'');
+  pivotGroup = pivotTable.addRowGroup(4);
+  sourceData = spreadsheet.getRange('Securities!A1:AB1523');
+  pivotTable = spreadsheet.getRange('A1').createPivotTable(sourceData);
+  pivotValue = pivotTable.addCalculatedPivotValue('Calculated Field 1', '=\'Amount Outstanding\'');
+  pivotValue.summarizeBy(SpreadsheetApp.PivotTableSummarizeFunction.CUSTOM);
+  pivotGroup = pivotTable.addRowGroup(4);
+};
