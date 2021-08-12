@@ -10,8 +10,8 @@ function slideData(name){
   chart:{left: 350, top: 80, height: 300, width: 350},
   table:{left: 40, top: 80, height: 50, width: 250}},
   "# of Pending Transactions per Program":{page:4,chart:{left: 320, top: 150, height: 300, width: 300}},
-  "# of Failed Transactions per Program":{page:5,chart:{left: 320, top: 150, height: 300, width: 300}},
-  "# of Completed Transactions per Program":{page:6,chart:{left: 320, top: 150, height: 300, width: 300}},
+  "# of Pending Transactions per Program (2 days or More)":{page:4,chart:{left: 320, top: 150, height: 300, width: 300}},
+  "# of Completed Transactions per Program":{page:4,chart:{left: 320, top: 150, height: 300, width: 300}},
 };
   return data[name]
 }
@@ -48,11 +48,11 @@ function removeChartAndTable(name,slides){
     
   }
 }
-
 function createNewPage(name,chart=null,table=null){
   var slides = getPresentation().getSlides()
   indx = slideData(name).page
   removeChartAndTable(name,slides)
+  console.log(indx)
   var slide = slides[indx]
   if (chart!=null){
     addChartToSlides(chart,slide,name)
