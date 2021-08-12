@@ -1,4 +1,3 @@
-
 function createPivotTable(dataSheet,pivotTableSheet,rowNames=[], valuesNames=[],filters=[],columnNames=[],customFunctions=[]){
   var sourceData = dataSheet.getDataRange()
   pivotTable = pivotTableSheet.getRange('A1').createPivotTable(sourceData);
@@ -43,7 +42,8 @@ function summarizeFunctions(v){
   data = {
     "SUM":SpreadsheetApp.PivotTableSummarizeFunction.SUM,
     "COUNTUNIQUE":SpreadsheetApp.PivotTableSummarizeFunction.COUNTUNIQUE,
-    "AVERAGE":SpreadsheetApp.PivotTableSummarizeFunction.AVERAGE
+    "AVERAGE":SpreadsheetApp.PivotTableSummarizeFunction.AVERAGE,
+    "COUNTA":SpreadsheetApp.PivotTableSummarizeFunction.COUNTA
   }
   return data[v]
 }
@@ -53,6 +53,9 @@ function customSummarizeFunctions(v){
   data = {
     "SUM":SpreadsheetApp.PivotTableSummarizeFunction.SUM,
     "CUSTOM":SpreadsheetApp.PivotTableSummarizeFunction.CUSTOM
+    
   }
   return data[v]
 }
+
+

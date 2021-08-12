@@ -1,10 +1,3 @@
-function graph1(){}
-function graph2(){}
-function graph3(){}
-function graph4(){}
-function graph5(){}
-function graph6(){}
-
 function slideData(name){
   var data = {
   "# of Active Programs per Register Servicer": {page:1,chart:{left: 200, top: 70, height: 340, width: 400}},
@@ -15,7 +8,10 @@ function slideData(name){
   "# of Headroom Threshold and Amount SEC Approved per program":
   { page:3,
   chart:{left: 350, top: 80, height: 300, width: 350},
-  table:{left: 40, top: 80, height: 50, width: 250}}
+  table:{left: 40, top: 80, height: 50, width: 250}},
+  "# of Pending Transactions per Program":{page:4,chart:{left: 320, top: 150, height: 300, width: 300}},
+  "# of Failed Transactions per Program":{page:5,chart:{left: 320, top: 150, height: 300, width: 300}},
+  "# of Completed Transactions per Program":{page:6,chart:{left: 320, top: 150, height: 300, width: 300}},
 };
   return data[name]
 }
@@ -97,5 +93,6 @@ function addTableToSlide(values,slide,name){
   table.setTitle(name)
   return table
 }
+
 
 

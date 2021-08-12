@@ -1,45 +1,16 @@
 {
   "timeZone": "America/Los_Angeles",
   "dependencies": {
-    "enabledAdvancedServices": [{
-      "userSymbol": "Sheets",
-      "serviceId": "sheets",
-      "version": "v4"
-    }]
   },
   "exceptionLogging": "STACKDRIVER",
   "runtimeVersion": "V8",
   "sheets": {
     "macros": [{
-      "menuName": "How to Stack",
-      "functionName": "HowtoStack"
+      "menuName": "two filters",
+      "functionName": "twofilters"
     }, {
-      "menuName": "percenting",
-      "functionName": "percenting"
-    }, {
-      "menuName": "Pivot table Date",
-      "functionName": "PivottableDate"
-    }, {
-      "menuName": "My Macro",
-      "functionName": "MyMacro"
-    }, {
-      "menuName": "Filter",
-      "functionName": "Filter"
-    }, {
-      "menuName": "divide thing",
-      "functionName": "dividething"
-    }, {
-      "menuName": "divide thingy 2",
-      "functionName": "dividethingy2"
-    }, {
-      "menuName": "calculated field",
-      "functionName": "calculatedfield"
-    }, {
-      "menuName": "max date",
-      "functionName": "maxdate"
-    }, {
-      "menuName": "Custom Func",
-      "functionName": "CustomFunc"
+      "menuName": "select dates pivot table",
+      "functionName": "selectdatespivottable"
     }]
   }
 }

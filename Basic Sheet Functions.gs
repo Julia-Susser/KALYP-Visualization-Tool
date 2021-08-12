@@ -25,3 +25,24 @@ function getSheet(name){
 }
 
 
+function last30Days(date){
+  listofDates = []
+  for (var i = 0; i < 31; i++){
+    newDate = new Date(date.getTime());
+    newDate.setDate(date.getDate()-i)
+    stringDate = DateInStringFormat(newDate)
+    listofDates.push(stringDate)
+  }
+  return listofDates
+}
+
+function DateInStringFormat(date){
+  month = parseInt(date.toISOString().substring(5,7))
+  day = parseInt(date.toISOString().substring(8,10))
+  year = date.toISOString().substring(0,4)
+  date = month+'/'+day+'/'+year
+  return date
+}
+
+
+
