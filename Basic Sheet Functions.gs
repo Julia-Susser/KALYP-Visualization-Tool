@@ -51,8 +51,7 @@ function last30Days(date){
 function subtractDaysFromDate(date,days){
   let newDate = new Date(date.getTime());
   newDate.setDate(date.getDate()-days)
-  stringDate = DateInStringFormatForQuery(newDate)
-  return stringDate
+  return newDate
 }
 
 function last30Days(date){

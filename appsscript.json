@@ -11,6 +11,12 @@
     }, {
       "menuName": "select dates pivot table",
       "functionName": "selectdatespivottable"
+    }, {
+      "menuName": "pivot table",
+      "functionName": "pivottable"
+    }, {
+      "menuName": "pivot table 2",
+      "functionName": "pivottable2"
     }]
   }
 }

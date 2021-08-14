@@ -9,3 +9,86 @@ function selectdatespivottable() {
   .build();
   pivotTable.addFilter(10, criteria);
 };
+
+function pivottable() {
+  var spreadsheet = SpreadsheetApp.getActive();
+  spreadsheet.getRange('A1').activate();
+  var sourceData = spreadsheet.getRange('Transactions!A1:P11250');
+  var pivotTable = spreadsheet.getRange('A1').createPivotTable(sourceData);
+  var pivotValue = pivotTable.addPivotValue(7, SpreadsheetApp.PivotTableSummarizeFunction.COUNTA);
+  var pivotGroup = pivotTable.addRowGroup(16);
+  pivotGroup.showTotals(false);
+  pivotGroup = pivotTable.addRowGroup(12);
+  pivotGroup.showTotals(false);
+  pivotGroup = pivotTable.addColumnGroup(7);
+  pivotGroup.showTotals(false);
+  var criteria = SpreadsheetApp.newFilterCriteria()
+  .setVisibleValues(['pending'])
+  .build();
+  pivotTable.addFilter(5, criteria);
+  criteria = SpreadsheetApp.newFilterCriteria()
+  .setVisibleValues(['', '1/13/2021', '1/14/2021', '1/15/2021', '1/16/2021', '1/17/2021', '1/18/2021', '1/19/2021', '1/20/2021', '1/21/2021', '1/22/2021', '1/23/2021', '1/24/2021', '1/25/2021', '1/26/2021', '1/27/2021', '1/28/2021', '1/29/2021', '1/30/2021', '1/31/2021', '2/1/2021', '2/2/2021', '2/3/2021', '2/4/2021', '2/5/2021', '2/6/2021', '2/7/2021', '2/8/2021', '2/9/2021', '2/10/2021', '2/11/2021', '2/12/2021', '2/13/2021', '2/14/2021', '2/15/2021', '2/16/2021', '2/17/2021', '2/18/2021', '2/19/2021', '2/20/2021', '2/21/2021', '2/22/2021', '2/23/2021', '2/24/2021', '2/25/2021', '2/26/2021', '2/27/2021', '2/28/2021', '3/1/2021', '3/2/2021', '3/3/2021', '3/4/2021', '3/5/2021', '3/6/2021', '3/7/2021', '3/8/2021', '3/9/2021', '3/10/2021', '3/11/2021', '3/12/2021', '3/13/2021', '3/14/2021', '3/15/2021', '3/16/2021', '3/17/2021', '3/18/2021', '3/19/2021', '3/20/2021', '3/21/2021', '3/22/2021', '3/23/2021', '3/24/2021', '3/25/2021', '3/26/2021', '3/27/2021', '3/28/2021', '3/29/2021', '3/30/2021', '3/31/2021', '4/1/2021', '4/2/2021', '4/3/2021', '4/4/2021', '4/5/2021', '4/6/2021', '4/7/2021', '4/8/2021', '4/9/2021', '4/10/2021'])
+  .build();
+  pivotTable.addFilter(16, criteria);
+  sourceData = spreadsheet.getRange('Transactions!A1:P11250');
+  pivotTable = spreadsheet.getRange('A1').createPivotTable(sourceData);
+  pivotValue = pivotTable.addPivotValue(7, SpreadsheetApp.PivotTableSummarizeFunction.COUNTA);
+  pivotGroup = pivotTable.addRowGroup(16);
+  pivotGroup.showTotals(false);
+  pivotGroup = pivotTable.addRowGroup(12);
+  pivotGroup.showTotals(false);
+  pivotGroup = pivotTable.addColumnGroup(7);
+  pivotGroup.showTotals(false);
+  criteria = SpreadsheetApp.newFilterCriteria()
+  .setVisibleValues(['pending'])
+  .build();
+  pivotTable.addFilter(5, criteria);
+  sourceData = spreadsheet.getRange('Transactions!A1:P11250');
+  pivotTable = spreadsheet.getRange('A1').createPivotTable(sourceData);
+  pivotValue = pivotTable.addPivotValue(7, SpreadsheetApp.PivotTableSummarizeFunction.COUNTA);
+  pivotGroup = pivotTable.addRowGroup(16);
+  pivotGroup.showTotals(false);
+  pivotGroup = pivotTable.addRowGroup(12);
+  pivotGroup.showTotals(false);
+  pivotGroup = pivotTable.addColumnGroup(7);
+  pivotGroup.showTotals(false);
+  criteria = SpreadsheetApp.newFilterCriteria()
+  .setVisibleValues(['pending'])
+  .build();
+  pivotTable.addFilter(5, criteria);
+};
+
+function pivottable2() {
+  var spreadsheet = SpreadsheetApp.getActive();
+  spreadsheet.getRange('A1').activate();
+  var sourceData = spreadsheet.getRange('Transactions!A1:P11250');
+  var pivotTable = spreadsheet.getRange('A1').createPivotTable(sourceData);
+  var pivotValue = pivotTable.addPivotValue(7, SpreadsheetApp.PivotTableSummarizeFunction.COUNTA);
+  var pivotGroup = pivotTable.addRowGroup(16);
+  pivotGroup.showTotals(false);
+  pivotGroup = pivotTable.addRowGroup(12);
+  pivotGroup.showTotals(false);
+  pivotGroup = pivotTable.addColumnGroup(7);
+  pivotGroup.showTotals(false);
+  var criteria = SpreadsheetApp.newFilterCriteria()
+  .setVisibleValues(['pending'])
+  .build();
+  pivotTable.addFilter(5, criteria);
+  criteria = SpreadsheetApp.newFilterCriteria()
+  .setVisibleValues(['', '1/13/2021', '1/14/2021', '1/15/2021', '1/16/2021', '1/17/2021', '1/18/2021', '1/19/2021', '1/20/2021', '1/21/2021', '1/22/2021', '1/23/2021', '1/24/2021', '1/25/2021', '1/26/2021', '1/27/2021', '1/28/2021', '1/29/2021', '1/30/2021', '1/31/2021', '2/1/2021', '2/2/2021', '2/3/2021', '2/4/2021', '2/5/2021', '2/6/2021', '2/7/2021', '2/8/2021', '2/9/2021', '2/10/2021', '2/11/2021', '2/12/2021', '2/13/2021', '2/14/2021', '2/15/2021', '2/16/2021', '2/17/2021', '2/18/2021', '2/19/2021', '2/20/2021', '2/21/2021', '2/22/2021', '2/23/2021', '2/24/2021', '2/25/2021', '2/26/2021', '2/27/2021', '2/28/2021', '3/1/2021', '3/2/2021', '3/3/2021', '3/4/2021', '3/5/2021', '3/6/2021', '3/7/2021', '3/8/2021', '3/9/2021', '3/10/2021', '3/11/2021', '3/12/2021', '3/13/2021', '3/14/2021', '3/15/2021', '3/16/2021', '3/17/2021', '3/18/2021', '3/19/2021', '3/20/2021', '3/21/2021', '3/22/2021', '3/23/2021', '3/24/2021', '3/25/2021', '3/26/2021', '3/27/2021', '3/28/2021', '3/29/2021', '3/30/2021', '3/31/2021', '4/1/2021', '4/2/2021', '4/3/2021', '4/4/2021', '4/5/2021', '4/6/2021', '4/7/2021', '4/8/2021', '4/9/2021', '4/10/2021'])
+  .build();
+  pivotTable.addFilter(16, criteria);
+  sourceData = spreadsheet.getRange('Transactions!A1:P11250');
+  pivotTable = spreadsheet.getRange('A1').createPivotTable(sourceData);
+  pivotValue = pivotTable.addPivotValue(7, SpreadsheetApp.PivotTableSummarizeFunction.COUNTA);
+  pivotGroup = pivotTable.addRowGroup(16);
+  pivotGroup.showTotals(false);
+  pivotGroup = pivotTable.addRowGroup(12);
+  pivotGroup.showTotals(false);
+  pivotGroup = pivotTable.addColumnGroup(7);
+  pivotGroup.showTotals(false);
+  criteria = SpreadsheetApp.newFilterCriteria()
+  .setVisibleValues(['pending'])
+  .build();
+  pivotTable.addFilter(5, criteria);
+};
