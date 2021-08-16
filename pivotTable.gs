@@ -1,9 +1,19 @@
-function createPivotTable(dataSheet,pivotTableSheet,rowNames=[], valuesNames=[],filters=[],columnNames=[],customFunctions=[]){
-  var sourceData = dataSheet.getDataRange()
-  pivotTable = pivotTableSheet.getRange('A1').createPivotTable(sourceData);
+
+
+function createPivotTable(dataSheet,pivotTableSheet,rowNames=[], valuesNames=[],filters=[],columnNames=[],customFunctions=[],dataSheetRange=null,sheetRange=null){
   
+  var sourceData = dataSheet.getDataRange()
+  if (dataSheetRange != null){
+    var sourceData = dataSheet.getRange(dataSheetRange)
+  }
+  if (sheetRange != null){
+    pivotTable = pivotTableSheet.getRange(sheetRange).createPivotTable(sourceData);
+  }else{
+    pivotTable = pivotTableSheet.getRange('A1').createPivotTable(sourceData);
+  }
+
   for (var i=0;i<valuesNames.length;i++){
-    value = getColIndxFromName(dataSheet,valuesNames[i].name)+1
+    value = getColIndxFromName(dataSheet,valuesNames[i].name)
     sumFunc = valuesNames[i].summarizeFunction
     pivotValue = pivotTable.addPivotValue(value, summarizeFunctions(sumFunc));
   }
@@ -17,13 +27,16 @@ function createPivotTable(dataSheet,pivotTableSheet,rowNames=[], valuesNames=[],
   }
 
   for (var i=0;i<rowNames.length;i++){
-    row = getColIndxFromName(dataSheet,rowNames[i].name)+1
+    row = getColIndxFromName(dataSheet,rowNames[i].name)
     pivotGroup = pivotTable.addRowGroup(row);
     pivotGroup.showTotals(false);
+    if (rowNames[i].labels){
+      pivotGroup.showRepeatedLabels();
+    }
   }
 
   for (var i=0;i<columnNames.length;i++){
-    col = getColIndxFromName(dataSheet,columnNames[i].name)+1
+    col = getColIndxFromName(dataSheet,columnNames[i].name)
     pivotGroup = pivotTable.addColumnGroup(col);
     pivotGroup.showTotals(false);
   }
@@ -32,7 +45,7 @@ function createPivotTable(dataSheet,pivotTableSheet,rowNames=[], valuesNames=[],
     criteria = SpreadsheetApp.newFilterCriteria()
     .setVisibleValues(filters[i].visibleValues)
     .build();
-    pivotTable.addFilter(getColIndxFromName(dataSheet,filters[i].name)+1, criteria);
+    pivotTable.addFilter(getColIndxFromName(dataSheet,filters[i].name), criteria);
   }
   
 }
@@ -41,9 +54,11 @@ function createPivotTable(dataSheet,pivotTableSheet,rowNames=[], valuesNames=[],
 function summarizeFunctions(v){
   data = {
     "SUM":SpreadsheetApp.PivotTableSummarizeFunction.SUM,
+    "MAX":SpreadsheetApp.PivotTableSummarizeFunction.MAX,
     "COUNTUNIQUE":SpreadsheetApp.PivotTableSummarizeFunction.COUNTUNIQUE,
     "AVERAGE":SpreadsheetApp.PivotTableSummarizeFunction.AVERAGE,
-    "COUNTA":SpreadsheetApp.PivotTableSummarizeFunction.COUNTA
+    "COUNTA":SpreadsheetApp.PivotTableSummarizeFunction.COUNTA,
+    "STDEV":SpreadsheetApp.PivotTableSummarizeFunction.STDEV
   }
   return data[v]
 }

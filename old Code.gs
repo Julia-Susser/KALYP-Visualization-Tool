@@ -57,7 +57,7 @@ function values(){
   newSheet.getRange(1,1,values.length,values[0].length).setValues(values)
 }
 
-function graph7() {
+function graph700() {
   name="# of Pending Transactions per Program"
   var sheet = getSheet(name)
   var dataSheet = getSheet("Transactions")

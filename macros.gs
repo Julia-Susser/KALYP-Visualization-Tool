@@ -92,3 +92,27 @@ function pivottable2() {
   .build();
   pivotTable.addFilter(5, criteria);
 };
+
+function repeatlabels() {
+  var spreadsheet = SpreadsheetApp.getActive();
+  spreadsheet.getRange('C5').activate();
+  var sourceData = spreadsheet.getRange('Transactions!A1:Q14795');
+  var pivotTable = spreadsheet.getRange('A1').createPivotTable(sourceData);
+  var pivotValue = pivotTable.addCalculatedPivotValue('Type', '=Type');
+  pivotValue.summarizeBy(SpreadsheetApp.PivotTableSummarizeFunction.CUSTOM);
+  pivotValue = pivotTable.addCalculatedPivotValue('age settled', '=\'Settlement Date\'-\'Instruction Date\'');
+  pivotValue.summarizeBy(SpreadsheetApp.PivotTableSummarizeFunction.CUSTOM);
+  var pivotGroup = pivotTable.addRowGroup(13);
+  pivotGroup.showTotals(false)
+  .showRepeatedLabels();
+  pivotGroup = pivotTable.addRowGroup(3);
+  pivotGroup.showTotals(false);
+  var criteria = SpreadsheetApp.newFilterCriteria()
+  .setVisibleValues(['3/26/2021', '3/25/2021', '3/24/2021', '3/23/2021', '3/22/2021', '3/21/2021', '3/20/2021', '3/19/2021', '3/18/2021', '3/17/2021', '3/16/2021', '3/15/2021', '3/14/2021', '3/13/2021', '3/12/2021', '3/11/2021', '3/10/2021', '3/9/2021', '3/8/2021', '3/7/2021', '3/6/2021', '3/5/2021', '3/4/2021', '3/3/2021', '3/2/2021', '3/1/2021', '2/28/2021', '2/27/2021', '2/26/2021', '2/25/2021', '2/24/2021'])
+  .build();
+  pivotTable.addFilter(16, criteria);
+  criteria = SpreadsheetApp.newFilterCriteria()
+  .setVisibleValues(['settled'])
+  .build();
+  pivotTable.addFilter(5, criteria);
+};

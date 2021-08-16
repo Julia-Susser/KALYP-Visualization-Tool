@@ -12,4 +12,20 @@ function GetTransactionsData(){
     .setValues(data);
   
   sheet.autoResizeColumns(1, range.getWidth());
+  PendingColumn()
 }
+
+
+
+
+function PendingColumn(){
+  name = "Transactions"
+  var dataSheet = getSheet(name)
+  height = dataSheet.getLastRow()
+  reportDateChar = getCharFromName(dataSheet,"Report Date")
+  instructDateChar = getCharFromName(dataSheet,"Instruction Date")
+  dataSheet.getRange(1,dataSheet.getLastColumn(),1,1).setValue("# of days pending")
+  var cell = dataSheet.getRange(2,dataSheet.getLastColumn(),height,1)
+  cell.setFormula("=minus("+reportDateChar+"2:"+reportDateChar+height+","+instructDateChar+"2:"+instructDateChar+height+")")
+}
+

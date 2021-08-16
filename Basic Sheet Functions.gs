@@ -7,7 +7,7 @@ function getColNames(sheet){
 function getColIndxFromName(sheet,col){
   var data = getColNames(sheet);
   var colIndx = data.indexOf(col);
-  return colIndx;
+  return colIndx+1;
 }
 
 function colIndxToCharacter(col){
@@ -18,7 +18,7 @@ function colIndxToCharacter(col){
 
 function getCharFromName(sheet,name){
   indx = getColIndxFromName(sheet,name)
-  return sheet.getRange(1,indx+1,1,1).getA1Notation()[0]
+  return sheet.getRange(1,indx,1,1).getA1Notation()[0]
 }
 
 
@@ -26,8 +26,8 @@ function getCharFromName(sheet,name){
 function getSheet(name){
   var ss = SpreadsheetApp.getActive()
   var sss = ss.getSheets()
-  names = sss.map(sheet => sheet.getName())
-  if (!names.includes(name)){
+  names = sss.map(sheet => sheet.getName().toUpperCase())
+  if (!names.includes(name.toUpperCase())){
     var newSheet = ss.insertSheet();
     newSheet.setName(name)
   }else{
@@ -54,17 +54,6 @@ function subtractDaysFromDate(date,days){
   return newDate
 }
 
-function last30Days(date){
-  listofDates = []
-  for (var i = 0; i < 31; i++){
-    newDate = new Date(date.getTime());
-    newDate.setDate(date.getDate()-i)
-    stringDate = DateInStringFormat(newDate)
-    listofDates.push(stringDate)
-  }
-  return listofDates
-}
-
 function DateInStringFormat(date){
   month = parseInt(date.toISOString().substring(5,7))
   day = parseInt(date.toISOString().substring(8,10))
@@ -73,13 +62,7 @@ function DateInStringFormat(date){
   return date
 }
 
-function DateInStringFormatForQuery(date){
-  month = parseInt(date.toISOString().substring(5,7))
-  day = parseInt(date.toISOString().substring(8,10))
-  year = date.toISOString().substring(0,4)
-  date = year+'-'+month+'-'+day
-  return date
-}
+
 
 
 

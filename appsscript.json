@@ -17,6 +17,9 @@
     }, {
       "menuName": "pivot table 2",
       "functionName": "pivottable2"
+    }, {
+      "menuName": "repeat labels",
+      "functionName": "repeatlabels"
     }]
   }
 }

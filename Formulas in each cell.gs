@@ -1,3 +1,13 @@
+
+
+function DateInStringFormatForQuery(date){
+  month = parseInt(date.toISOString().substring(5,7))
+  day = parseInt(date.toISOString().substring(8,10))
+  year = date.toISOString().substring(0,4)
+  date = year+'-'+month+'-'+day
+  return date
+}
+
 function pendingGraphParameters(instructionDate,settlementDate,ticker){
         parameters = [
         settlementDateChar+">date '"+settlementDate+"'",
@@ -12,7 +22,7 @@ function pendingGraphParameters(instructionDate,settlementDate,ticker){
       return parameters
 }
 
-function graph10() {
+function graph100() {
   name="# of Pending Transactions per Program"
   var sheet = getSheet(name)
   var dataSheet = getSheet("Transactions")
@@ -53,7 +63,7 @@ function graph10() {
 
 
 
-function graph16() {
+function graph160() {
   name="# of Requests per Member and Type in the Last Thirty Days over the last Thirty Days"
   var sheet = getSheet(name)
   var dataSheet = getSheet("Transactions")
