@@ -1,8 +1,8 @@
 
 
 //https://developers.google.com/apps-script/chart-configuration-options
-function graph10(){}
-function createChart(sheet,title,xaxis,yaxis,chartType,numHeaders=1,ranges=null,stacked=true){
+function graph2(){}
+function createChart(sheet,title,xaxis,yaxis,chartType,numHeaders=1,ranges=null,stacked=true,verticalaxis=null){
   var range = sheet.getRange("A1").getDataRegion()
   height = range.getHeight()
   //if a chart is already there remove it and add another one
@@ -20,6 +20,7 @@ function createChart(sheet,title,xaxis,yaxis,chartType,numHeaders=1,ranges=null,
   .setOption('hAxis',{title:xaxis})
   .setOption('vAxis',{title:yaxis})
   .setOption('isStacked', stacked.toString())
+
   //Add specific ranges if the ranges are not null. otherwise use the entire sheet in the table
   if (ranges !=null){
     for (var r=0;r<ranges.length;r++){
@@ -27,6 +28,11 @@ function createChart(sheet,title,xaxis,yaxis,chartType,numHeaders=1,ranges=null,
     }
   }else{
     chart = chart.addRange(range)
+  }
+  if (verticalaxis!=null){
+    chart = chart
+    .asColumnChart()
+    chart.setRange(verticalaxis.min,verticalaxis.max)
   }
   chart = chart.build()
   

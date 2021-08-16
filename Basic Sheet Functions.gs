@@ -25,17 +25,23 @@ function getCharFromName(sheet,name){
 
 function getSheet(name){
   var ss = SpreadsheetApp.getActive()
-  var sss = ss.getSheets()
-  names = sss.map(sheet => sheet.getName().toUpperCase())
-  if (!names.includes(name.toUpperCase())){
+  newSheet = ss.getSheetByName(name)
+  if (newSheet == undefined){
     var newSheet = ss.insertSheet();
     newSheet.setName(name)
-  }else{
-    newSheet = ss.getSheetByName(name)
   }
   return newSheet
 }
 
+
+
+function getLatestDate(){
+  var dataSheet = getSheet("Transactions")
+  reportDateChar = getCharFromName(dataSheet,"Report Date")
+  dataSheet.sort(getColIndxFromName(dataSheet,"Report Date"), false);
+  date = dataSheet.getRange(reportDateChar+'2').getValue()
+  return date
+}
 
 function last30Days(date){
   listofDates = []
@@ -55,11 +61,11 @@ function subtractDaysFromDate(date,days){
 }
 
 function DateInStringFormat(date){
-  month = parseInt(date.toISOString().substring(5,7))
-  day = parseInt(date.toISOString().substring(8,10))
-  year = date.toISOString().substring(0,4)
-  date = month+'/'+day+'/'+year
-  return date
+  var newdate = new Date(date.getTime())
+  var month = parseInt(newdate.toISOString().substring(5,7))
+  var day = parseInt(newdate.toISOString().substring(8,10))
+  var year = newdate.toISOString().substring(0,4)
+  return month+'/'+day+'/'+year
 }
 
 

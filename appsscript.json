@@ -20,6 +20,9 @@
     }, {
       "menuName": "repeat labels",
       "functionName": "repeatlabels"
+    }, {
+      "menuName": "minmax",
+      "functionName": "minmax"
     }]
   }
 }
