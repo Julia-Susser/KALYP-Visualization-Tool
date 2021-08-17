@@ -1,7 +1,7 @@
 
 
 //https://developers.google.com/apps-script/chart-configuration-options
-function graph2(){}
+function graph1(){}
 function createChart(sheet,title,xaxis,yaxis,chartType,numHeaders=1,ranges=null,stacked=true,verticalaxis=null){
   var range = sheet.getRange("A1").getDataRegion()
   height = range.getHeight()
@@ -17,6 +17,8 @@ function createChart(sheet,title,xaxis,yaxis,chartType,numHeaders=1,ranges=null,
   .setNumHeaders(numHeaders)
   .setHiddenDimensionStrategy(Charts.ChartHiddenDimensionStrategy.IGNORE_COLUMNS)
   .setPosition(5, 5, 0, 0)
+  .setOption('width', 700)
+  .setOption('height', 500)
   .setOption('hAxis',{title:xaxis})
   .setOption('vAxis',{title:yaxis})
   .setOption('isStacked', stacked.toString())

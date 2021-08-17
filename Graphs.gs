@@ -2,18 +2,18 @@ function getSpecificPendingDays(days){
   return Array.apply(0, Array(10000)).map((element,indx) => indx+days)
 }
 
-function TransactionsByProgram(tpe,statuses,specificPendingDays){
+function TransactionsByProgram(type,statuses,specificPendingDays){
   title = `# of ${type} per Program`
   var sheet = getSheet(title)
   var dataSheet = getSheet("Transactions")
   sheet.clear()
-  date = getLatestDate()
-  dates = last30Days(date)
+  week = getLatestWeek()
+  weeks = Array.apply(0, Array(4)).map((element,indx) => week-indx)
   var filters = [
     {name:"Status",
     visibleValues:statuses},
-    {name:"Report Date",
-    visibleValues:dates},
+    {name:"week number",
+    visibleValues:weeks},
     ]
   if (specificPendingDays != null){
     filters.push({name:"# of days pending",
@@ -23,6 +23,7 @@ function TransactionsByProgram(tpe,statuses,specificPendingDays){
     {name:"Reference",summarizeFunction:"COUNTUNIQUE"}
   ]
   rowNames = [
+    {name:"week number"},
     {name:"week"}
   ]
   if (status.length>1){
@@ -33,14 +34,20 @@ function TransactionsByProgram(tpe,statuses,specificPendingDays){
   ]
   createPivotTable(dataSheet,sheet,rowNames=rowNames, valueNames=valueNames, filters=filters, columnNames=columnNames)
   var chartType = Charts.ChartType.COLUMN
-  yaxis = `# of ${status} transactions from ${dates[dates.length-1]} to ${dates[0]}`
+  
+  dates = sheet.getRange("B:B").getValues().map(value => {return value[0]}).filter(value => {return value != ""})
+  startDate = dates[1].split("-")[0]
+  endDate = dates[dates.length-1].split("-")[1]
+  yaxis = `# of transactions from ${startDate} to ${endDate}`
+
   if (specificPendingDays != null){verticalaxis={min:0,max:500}}else{verticalaxis=null}
-  var chart = createChart(sheet,title,"Program",yaxis,chartType,numHeaders=2,ranges=null,stacked=true,verticalaxis=verticalaxis)
-  //createNewPage(title,chart=chart)
+  ranges = ["B:"+colIndxToCharacter(sheet.getLastColumn())]
+  var chart = createChart(sheet,title,"Program",yaxis,chartType,numHeaders=2,ranges=ranges,stacked=true,verticalaxis=verticalaxis)
+  createNewPage(title,chart=chart)
 }
 
 function graph1(){
-    TransactionsByProgram(type="pending,settled, and cancelled transactions",status=["pending","settled","cancelled"])
+    TransactionsByProgram(type="pending, settled, and cancelled transactions",status=["pending","settled","cancelled"])
 }
 
 
@@ -66,14 +73,14 @@ function graph4(){
 
 
 
-function TransactionsnByMemberType(type, status,specificPendingDays){
+function TransactionsByMemberType(type, status,specificPendingDays){
   title =  `# of ${type} by Type and Member`
   var sheet = getSheet(title)
   var dataSheet = getSheet("Transactions")
   sheet.clear()
   date = getLatestDate()
   dates = last30Days(date)
-  if (status="pending"){ dates = [dates[0]] }
+  if (status==="pending"){ dates = [dates[0]] }
   var filters = [
     {name:"Report Date",
     visibleValues:dates},
@@ -96,25 +103,25 @@ function TransactionsnByMemberType(type, status,specificPendingDays){
 
   createPivotTable(dataSheet,sheet,rowNames=rowNames, valueNames=valueNames, filters=filters, columnNames=columnNames)
   var chartType = Charts.ChartType.COLUMN
-  if (status="pending"){ 
-    yaxis = `# of ${status} transactions on ${dates[0]}`
+  if (status==="pending"){ 
+    yaxis = `# of transactions on ${dates[0]}`
   }else{
-    yaxis = `# of ${status} transactions from ${dates[dates.length-1]} to ${dates[0]}`
+    yaxis = `# of transactions from ${dates[dates.length-1]} to ${dates[0]}`
   }
-  var chart = createChart(sheet,title,"Member",yaxis,chartType,numHeaders=2)
-  //createNewPage(title,chart=chart)
+  var chart = createChart(sheet,title,"Member",yaxis,chartType,numHeaders=2,ranges=null,stacked=false)
+  createNewPage(title,chart=chart)
 }
 
 function graph5(){
-  TransactionsnByMemberType(type="requested Services",status="initiated")
+  TransactionsByMemberType(type="requested Services",status="initiated")
 }
 
 function graph6(){
-  TransactionsnByMemberType(type="completed Services",status="completed")
+  TransactionsByMemberType(type="completed Services",status="settled")
 }
 
 function graph7(){
-  TransactionsnByMemberType(type="cancelled Services",status="cancelled")
+  TransactionsByMemberType(type="cancelled Services",status="cancelled")
 }
 
 function graph8(){
@@ -136,8 +143,8 @@ function graph10(){
 
 
 
-function TransactionsByAgeOfService(type, status, summarizeFunction, oldestPending=false){
-  title = `${type} By Type and By Member`
+function TransactionsByAgeOfService(type, status, summarizeFunction){
+  title = `${type} by Type and By Member`
   console.log(title)
   var sheet = getSheet(type)
   var dataSheet = getSheet("Transactions")
@@ -193,12 +200,12 @@ function TransactionsByAgeOfService(type, status, summarizeFunction, oldestPendi
   var chartType = Charts.ChartType.COLUMN
   ranges = ["G:J"]
   if (status=="pending"){ 
-    yaxis = `${summarizeFunction.lower()} Age (days) on ${dates[0]}`
+    yaxis = `${summarizeFunction.toLowerCase()} Age (days) on ${dates[0]}`
   }else{
-    yaxis = `${summarizeFunction.lower()} Age (days) from ${dates[dates.length-1]} to ${dates[0]}`
+    yaxis = `${summarizeFunction.toLowerCase()} Age (days) from ${dates[dates.length-1]} to ${dates[0]}`
   }
   var chart = createChart(sheet,title,"Member",yaxis,chartType,numHeaders=2,ranges=ranges,stacked=false)
-  //createNewPage(title,chart=chart)
+  createNewPage(title,chart=chart)
 }
 
 
@@ -211,5 +218,5 @@ function graph12(){
 }
 
 function graph13(){
-   TransactionsByAgeOfService(type="Oldest Pending Service",status="pending", "MAX", oldestPending=true)
+   TransactionsByAgeOfService(type="Oldest Pending Service",status="pending", "MAX")
 }

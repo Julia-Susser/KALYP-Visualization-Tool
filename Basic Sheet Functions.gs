@@ -12,7 +12,7 @@ function getColIndxFromName(sheet,col){
 
 function colIndxToCharacter(col){
   sheet = SpreadsheetApp.getActiveSheet()
-  return sheet.getActiveRange(1,col,2,col+10).getA1Notation()[0]
+  return sheet.getRange(1,col,2,1).getA1Notation()[0]
 }
 
 
@@ -43,6 +43,14 @@ function getLatestDate(){
   return date
 }
 
+function getLatestWeek(){
+  var dataSheet = getSheet("Transactions")
+  weekNumChar = getCharFromName(dataSheet,"week number")
+  dataSheet.sort(getColIndxFromName(dataSheet,"Report Date"), false);
+  date = dataSheet.getRange(weekNumChar+'2').getValue()
+  return date
+}
+
 function last30Days(date){
   listofDates = []
   for (var i = 0; i < 31; i++){
@@ -67,6 +75,8 @@ function DateInStringFormat(date){
   var year = newdate.toISOString().substring(0,4)
   return month+'/'+day+'/'+year
 }
+
+
 
 
 

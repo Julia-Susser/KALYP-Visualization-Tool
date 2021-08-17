@@ -12,25 +12,24 @@ function slideData(name){
   chart:{left: 350, top: 80, height: 300, width: 350},
   table:{left: 40, top: 80, height: 50, width: 250}},
 
-  "# of pending transactions per Program":{page:4,chart:{left: 10, top: -50, height: 500, width: 300}},
-  "# of settled transactions per Program":{page:4,chart:{left: 320, top: -150, height: 500, width: 300}},
+  "# of pending, settled, and cancelled transactions per Program":{page:4,chart:{left: 10, top: 50, height: 300, width: 400}},
 
-  "# of failing transactions per Program (2 or more days)":{page:5,chart:{left: 10, top: -50, height: 500, width: 300}},
-  "# of failing transactions per Program (older than 2)":{page:5,chart:{left: 10, top: -10, height: 500, width: 300}},
-  "# of failing transactions per Program (older than 5)":{page:5,chart:{left: 320, top: -150, height: 500, width: 300}},
-  "# of failing transactions per Program (older than 10)":{page:5,chart:{left: 320, top: 150, height: 300, width: 300}},
+  "# of pending transactions (2 or more days) per Program":{page:5,chart:{left: 10, top: -10, height: 500, width: 300}},
+  "# of pending transactions (5 or more days) per Program":{page:5,chart:{left: 320, top: -150, height: 500, width: 300}},
+  "# of pending transactions (10 or more days) per Program":{page:5,chart:{left: 320, top: 150, height: 300, width: 300}},
 
   "# of requested Services by Type and Member":{page:6,chart:{left: 10, top: -50, height: 500, width: 300}},
-  "# of competed Services (ex Notifications) By Type and By Member":{page:6,chart:{left: 320, top: -150, height: 500, width: 300}},
-  "# of cancelled Services (ex Notifications) By Type and By Member":{page:6,chart:{left: 320, top: 150, height: 300, width: 300}},
+  "# of completed Services by Type and Member":{page:6,chart:{left: 320, top: -150, height: 500, width: 300}},
+  "# of cancelled Services by Type and Member":{page:6,chart:{left: 320, top: 150, height: 300, width: 300}},
 
-  "# of pending Services (ex Notifications) By Type and By Member":{page:7,chart:{left: 10, top: -50, height: 500, width: 300}},
-  "# of pending Services (ex Notifications) By Type and By Member +3days":{page:7,chart:{left: 320, top: -150, height: 500, width: 300}},
-  "# of pending Services (ex Notifications) By Type and By Member +10days":{page:7,chart:{left: 320, top: 150, height: 300, width: 300}},
+  "# of pending Services by Type and Member":{page:7,chart:{left: 10, top: -50, height: 500, width: 300}},
+  "# of pending services (2 or more days) by Type and Member":{page:7,chart:{left: 320, top: -150, height: 500, width: 300}},
+  "# of pending services (10 or more days) by Type and Member":{page:7,chart:{left: 320, top: 150, height: 300, width: 300}},
 
 
-  "# Average age of pending Service (ex Notifications) By Type and By Member":{page:8,chart:{left: 10, top: -50, height: 500, width: 300}},
-  "# Average age of completed Service (ex Notifications) By Type and By Member":{page:8,chart:{left: 320, top: -150, height: 500, width: 300}},
+  "Average age of Completed Services by Type and By Member":{page:8,chart:{left: 10, top: -50, height: 500, width: 300}},
+  "Standard Dev. of age of Completed Services by Type and By Member":{page:8,chart:{left: 320, top: -150, height: 500, width: 300}},
+  "Oldest Pending Service by Type and By Member":{page:8,chart:{left: 320, top: 150, height: 500, width: 300}},
 };
   return data[name]
 }
