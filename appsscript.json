@@ -1,30 +1,7 @@
 {
   "timeZone": "America/Los_Angeles",
   "dependencies": {
-    "enabledAdvancedServices": [
-      {
-        "userSymbol": "Sheets",
-        "serviceId": "sheets",
-        "version": "v4"
-      }
-    ],
-    "libraries": [
-      {
-        "userSymbol": "GUIFunctions",
-        "version": "0",
-        "libraryId": "1xE_UHD3jvGf8kVhxTdqOPOqEHjhlDVTAjihvDYLZfpwcDASTOf8y_6jv",
-        "developmentMode": true
-      }
-    ]
   },
   "exceptionLogging": "STACKDRIVER",
-  "runtimeVersion": "V8",
-  "sheets": {
-    "macros": [
-      {
-        "menuName": "how to change chart 1",
-        "functionName": "howtochangechart1"
-      }
-    ]
-  }
+  "runtimeVersion": "V8"
 }
