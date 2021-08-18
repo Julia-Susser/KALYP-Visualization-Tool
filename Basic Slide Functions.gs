@@ -1,8 +1,9 @@
-function createText(text,slideNumber){
+function createText(text,slideNumber=2){
   var slide = getPresentation().getSlides()[slideNumber]
   var shape = slide.insertShape(SlidesApp.ShapeType.TEXT_BOX, 100, 200, 300, 60);
+  shape.getBorder().setWeight(10)
   var textRange = shape.getText();
-  textRange.setText(text);
+  textRange.setText("julia");
   textRange.getTextStyle().setFontSize(20)
   shape.setLeft(50).setTop(30).setWidth(1000).setHeight(60)
 }

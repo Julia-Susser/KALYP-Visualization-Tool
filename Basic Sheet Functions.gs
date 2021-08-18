@@ -62,6 +62,23 @@ function last30Days(date){
   return listofDates
 }
 
+function last10Days(date){
+  listofDates = []
+  indx = -1
+  for (var i = 0; i < 10; indx++){
+    var newDate = new Date(date.getTime());
+    newDate.setDate(date.getDate()-indx)
+    dayOfWeek = newDate.getDay();
+    var isWeekend = (dayOfWeek === 6) || (dayOfWeek  === 0);
+    if (!isWeekend){
+      stringDate = DateInStringFormat(newDate)
+      listofDates.push(stringDate)
+      i = i+1
+    }
+  }
+  return listofDates
+}
+
 function subtractDaysFromDate(date,days){
   let newDate = new Date(date.getTime());
   newDate.setDate(date.getDate()-days)

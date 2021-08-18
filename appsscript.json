@@ -23,6 +23,9 @@
     }, {
       "menuName": "minmax",
       "functionName": "minmax"
+    }, {
+      "menuName": "sorrrt",
+      "functionName": "sorrrt"
     }]
   }
 }

@@ -180,3 +180,9 @@ function minmax() {
   .build();
   sheet.insertChart(chart);
 };
+
+function sorrrt() {
+  var spreadsheet = SpreadsheetApp.getActive();
+  spreadsheet.getRange('A3:I14').activate()
+  .sort({column: 1, ascending: true});
+};
