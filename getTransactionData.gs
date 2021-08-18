@@ -1,6 +1,6 @@
 
 function GetTransactionsData(){
-  var sheet = getSheet("Transactions");
+  var sheet = GUIFunctions.getSheet("Transactions");
   sheet.clear()
   var dataSpreadsheet = SpreadsheetApp.openById(
     "156wfiWS8L99G9Yw8eI8-NHrUr6kZs1ClpiFx2qhhpAE" 
@@ -19,10 +19,10 @@ function GetTransactionsData(){
 
 function PendingColumn(){
   name = "Transactions"
-  var dataSheet = getSheet(name)
+  var dataSheet = GUIFunctions.getSheet(name)
   height = dataSheet.getLastRow()
-  reportDateChar = getCharFromName(dataSheet,"Report Date")
-  instructDateChar = getCharFromName(dataSheet,"Instruction Date")
+  reportDateChar = GUIFunctions.getCharFromName(dataSheet,"Report Date")
+  instructDateChar = GUIFunctions.getCharFromName(dataSheet,"Instruction Date")
   dataSheet.getRange("Q1").setValue("# of days pending")
   var cell = dataSheet.getRange("Q2:Q"+height)
   cell.setFormula("=minus("+reportDateChar+"2:"+reportDateChar+height+","+instructDateChar+"2:"+instructDateChar+height+")")
