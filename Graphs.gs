@@ -4,11 +4,11 @@ function getSpecificPendingDays(days){
 
 function TransactionsByProgram(type,statuses,specificPendingDays,legendVisible){
   title = `# of ${type} per Program`
-  var sheet = getSheet(title)
-  var dataSheet = getSheet("Transactions")
+  var sheet = GUIFunctions.getSheet(title)
+  var dataSheet = GUIFunctions.getSheet("Transactions")
   sheet.clear()
-  date = getLatestDate()
-  dates = last10Days(date)
+  date = GUIFunctions.getLatestDate()
+  dates = GUIFunctions.last10Days(date)
   var filters = [
     {name:"Status",
     visibleValues:statuses},
@@ -31,11 +31,11 @@ function TransactionsByProgram(type,statuses,specificPendingDays,legendVisible){
   columnNames = [
     {name:"Ticker"}
   ]
-  createPivotTable(dataSheet,sheet,rowNames=rowNames, valueNames=valueNames, filters=filters, columnNames=columnNames)
+  GUIFunctions.createPivotTable(dataSheet,sheet,rowNames=rowNames, valueNames=valueNames, filters=filters, columnNames=columnNames)
   var chartType = Charts.ChartType.BAR
 
   newdates = sheet.getRange("A3:A").getValues().map(value => {return value[0]}).filter(value => {return value != ""})
-  newdates = newdates.map(date => {return DateInStringFormat(date)})
+  newdates = newdates.map(date => {return GUIFunctions.DateInStringFormat(date)})
   extradates = dates.filter(date => {return newdates.indexOf(date)===-1 }).map(date => {return [date]})
   if (extradates.length > 0){ sheet.getRange(sheet.getLastRow()+1,1,extradates.length,1).setValues(extradates) }
   cells = sheet.getDataRange().getValues()
@@ -59,12 +59,12 @@ function TransactionsByProgram(type,statuses,specificPendingDays,legendVisible){
     },
     legendVisible:legendVisible
   }
-  var chart = createChart(sheet,chartType,chartParams)
-  table = newdates = sheet.getRange("A3:A").getValues().filter(value => {return value[0] != ''}).map(date => {return [DateInStringFormat(date[0])]})
+  var chart = GUIFunctions.createChart(sheet,chartType,chartParams)
+  table = newdates = sheet.getRange("A3:A").getValues().filter(value => {return value[0] != ''}).map(date => {return [GUIFunctions.DateInStringFormat(date[0])]})
   if (type==="pending transactions (3 to 4 days)"){
-    createNewPage(title,chart=chart,table=table)
+    GUIFunctions.createNewPage(title,chart=chart,table=table)
   }else{
-    createNewPage(title,chart=chart)
+    GUIFunctions.createNewPage(title,chart=chart)
   }
   
 }
@@ -100,11 +100,11 @@ function graphlegend(){
 
 function TransactionsByMemberType(type, status,specificPendingDays){
   title =  `# of ${type} by Type and Member`
-  var sheet = getSheet(title)
-  var dataSheet = getSheet("Transactions")
+  var sheet = GUIFunctions.getSheet(title)
+  var dataSheet = GUIFunctions.getSheet("Transactions")
   sheet.clear()
-  date = getLatestDate()
-  dates = last30Days(date)
+  date = GUIFunctions.getLatestDate()
+  dates = GUIFunctions.last30Days(date)
   if (status==="pending"){ dates = [dates[0]] }
   var filters = [
     {name:"Report Date",
@@ -126,7 +126,7 @@ function TransactionsByMemberType(type, status,specificPendingDays){
     {name:"Type"}
   ]
 
-  createPivotTable(dataSheet,sheet,rowNames=rowNames, valueNames=valueNames, filters=filters, columnNames=columnNames)
+  GUIFunctions.createPivotTable(dataSheet,sheet,rowNames=rowNames, valueNames=valueNames, filters=filters, columnNames=columnNames)
   var chartType = Charts.ChartType.BAR
   if (status==="pending"){ 
     yaxis = `# of transactions on ${dates[0]}`
@@ -143,8 +143,8 @@ function TransactionsByMemberType(type, status,specificPendingDays){
     legendVisible:false,
     legendFontSize:10
   }
-  var chart = createChart(sheet,chartType,chartParams=chartParams)
-  createNewPage(title,chart=chart)
+  var chart = GUIFunctions.createChart(sheet,chartType,chartParams=chartParams)
+  GUIFunctions.createNewPage(title,chart=chart)
 }
 
 function graph4(){
@@ -185,11 +185,11 @@ function graph11(){
 function TransactionsByAgeOfService(type, status, summarizeFunction){
   title = `${type} by Type and By Member`
   console.log(title)
-  var sheet = getSheet(type)
+  var sheet = GUIFunctions.getSheet(type)
   var dataSheet = getSheet("Transactions")
   sheet.clear()
-  date = getLatestDate()
-  dates = last30Days(date)
+  date = GUIFunctions.getLatestDate()
+  dates = GUIFunctions.last30Days(date)
   if (status=="pending"){ dates = [dates[0]] }
   var filters = [
     {name:"Report Date",
@@ -222,7 +222,7 @@ function TransactionsByAgeOfService(type, status, summarizeFunction){
       )
   }
 
-  createPivotTable(dataSheet,sheet,rowNames=rowNames, valueNames=valueNames, filters=filters, columnNames=columnNames,customFunctions=customFunctions)
+  GUIFunctions.createPivotTable(dataSheet,sheet,rowNames=rowNames, valueNames=valueNames, filters=filters, columnNames=columnNames,customFunctions=customFunctions)
   var filters = []
   rowNames = [
     {name:"Instructing Party"}
@@ -235,7 +235,7 @@ function TransactionsByAgeOfService(type, status, summarizeFunction){
   ]
   dataSheetRange = "A1:D"+sheet.getLastRow()
   sheetRange = "G1"
-  createPivotTable(sheet,sheet,rowNames=rowNames, valueNames=valueNames, filters=filters, columnNames=columnNames,customFunctions=[],dataSheetRange,sheetRange)
+  GUIFunctions.createPivotTable(sheet,sheet,rowNames=rowNames, valueNames=valueNames, filters=filters, columnNames=columnNames,customFunctions=[],dataSheetRange,sheetRange)
   var chartType = Charts.ChartType.BAR
   if (status=="pending"){ 
     yaxis = `${summarizeFunction.toLowerCase()} Age (days) on ${dates[0]}`
@@ -253,8 +253,8 @@ function TransactionsByAgeOfService(type, status, summarizeFunction){
     legendFontSize:10,
     ranges: ["G:J"]
   }
-  var chart = createChart(sheet,chartType,chartParams)
-  createNewPage(title,chart=chart)
+  var chart = GUIFunctions.createChart(sheet,chartType,chartParams)
+  GUIFunctions.createNewPage(title,chart=chart)
 }
 
 

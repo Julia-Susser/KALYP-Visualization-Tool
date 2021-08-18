@@ -2,6 +2,7 @@ function onOpen() {
   SpreadsheetApp.getUi() // Or DocumentApp or SlidesApp or FormApp.
       .createMenu('Menu')
       .addItem('Get Transactions Data', 'GetTransactionsData')
+      .addItem('Pending Column', 'PendingColumn')
       .addSeparator()
       .addItem("# of pending transactions (3 to 4 days) per Program","graph1")
       .addItem("# of pending transactions (5 to 9 days) per Program","graph2")

@@ -1,31 +1,45 @@
 {
   "timeZone": "America/Los_Angeles",
   "dependencies": {
+    "libraries": [
+      {
+        "userSymbol": "GUIFunctions",
+        "libraryId": "1xE_UHD3jvGf8kVhxTdqOPOqEHjhlDVTAjihvDYLZfpwcDASTOf8y_6jv"
+      }
+    ]
   },
   "exceptionLogging": "STACKDRIVER",
   "runtimeVersion": "V8",
   "sheets": {
-    "macros": [{
-      "menuName": "two filters",
-      "functionName": "twofilters"
-    }, {
-      "menuName": "select dates pivot table",
-      "functionName": "selectdatespivottable"
-    }, {
-      "menuName": "pivot table",
-      "functionName": "pivottable"
-    }, {
-      "menuName": "pivot table 2",
-      "functionName": "pivottable2"
-    }, {
-      "menuName": "repeat labels",
-      "functionName": "repeatlabels"
-    }, {
-      "menuName": "minmax",
-      "functionName": "minmax"
-    }, {
-      "menuName": "sorrrt",
-      "functionName": "sorrrt"
-    }]
+    "macros": [
+      {
+        "menuName": "two filters",
+        "functionName": "twofilters"
+      },
+      {
+        "menuName": "select dates pivot table",
+        "functionName": "selectdatespivottable"
+      },
+      {
+        "menuName": "pivot table",
+        "functionName": "pivottable"
+      },
+      {
+        "menuName": "pivot table 2",
+        "functionName": "pivottable2"
+      },
+      {
+        "menuName": "repeat labels",
+        "functionName": "repeatlabels"
+      },
+      {
+        "menuName": "minmax",
+        "functionName": "minmax"
+      },
+      {
+        "menuName": "sorrrt",
+        "functionName": "sorrrt"
+      }
+    ]
   }
 }

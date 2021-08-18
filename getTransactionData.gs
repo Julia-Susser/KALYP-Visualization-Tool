@@ -12,7 +12,6 @@ function GetTransactionsData(){
     .setValues(data);
   
   sheet.autoResizeColumns(1, range.getWidth());
-  PendingColumn()
 }
 
 
@@ -27,28 +26,5 @@ function PendingColumn(){
   dataSheet.getRange("Q1").setValue("# of days pending")
   var cell = dataSheet.getRange("Q2:Q"+height)
   cell.setFormula("=minus("+reportDateChar+"2:"+reportDateChar+height+","+instructDateChar+"2:"+instructDateChar+height+")")
-
-  // reportDateChar = getCharFromName(dataSheet,"Report Date")
-  // dataSheet.getRange("R1").setValue("start week")
-  // var cell = dataSheet.getRange("R2:R"+height)
-  // range = reportDateChar+"2:"+reportDateChar+height
-  // cell.setFormula(`=minus(${range},WEEKDAY(${range})-1)`)
-
-  // dataSheet.getRange("S1").setValue("end week")
-  // var cell = dataSheet.getRange("S2:S"+height)
-  // range = reportDateChar+"2:"+reportDateChar+height
-  // cell.setFormula(`=add(${range},7-(WEEKDAY(${range})))`)
-
-  // cells = dataSheet.getRange("R2:S"+height).getValues()
-  // cells = cells.map(values => {return [DateInStringFormat(values[0])+"-"+DateInStringFormat(values[1])] })
-  // var cell = dataSheet.getRange("S2:S"+height)
-  // dataSheet.getRange("T1").setValue("week")
-  // dataSheet.getRange("T2:T"+height).setValues(cells)
-
-  // dataSheet.getRange("U1").setValue("week number")
-  // var cell = dataSheet.getRange("U2:U"+height)
-  // range = reportDateChar+"2:"+reportDateChar+height
-  // console.log(range)
-  // cell.setFormula(`=WEEKNUM(${range})`)
 }
 
