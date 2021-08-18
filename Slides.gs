@@ -7,8 +7,8 @@ function graph6(){}
 
 function slideData(name){
   var data = {
-  "# of Active Programs per Register Servicer": {page:1,chart:{left: 1.58, top: 1.22, height: 4.04, width: 6.54}},
-  "List of Active Programs per Register Servicer":{page:1,table:{left: 6.51, top: 1.28, height: 1.61, width: 2.84,fontSize:12}},
+  "# of Active Programs per Register Servicer": {page:1,chart:{left: 0.73, top: 1.28, height: 3.85, width: 6.23}},
+  "List of Active Programs per Register Servicer":{page:1,table:{left: 6.96, top: 1.56, height: 1.61, width: 2.39,fontSize:12}},
   "# of Shares Outstanding per Program":{page:2,chart:{left: 0.72, top: 1.37, height: 3.48, width: 4.59}},
   "# of Headroom per Program":{page:2,chart:{left: 5.8, top: 3.17, height: 1.77, width: 2.98}},
   "% Headroom Factor per Program":{page:2,chart:{left: 5.8, top: 1.37, height: 1.77, width: 2.98}},

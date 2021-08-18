@@ -55,14 +55,14 @@ function graph2(){
     ticker = value[1]
     if (newServicer != ""){
       if (servicer != null){
-        servicers.push(["",tickers])
+        servicers.push([servicer,tickers])
       }
       tickers = []
       servicer = newServicer
     }
     tickers.push(ticker)
   })
-  servicers.push(["",tickers])
+  servicers.push([servicer,tickers])
 
   createNewPage(name, chart=null, table=servicers)
 }
