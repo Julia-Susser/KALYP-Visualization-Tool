@@ -1,4 +1,4 @@
-                              
+
 
 function onOpen() {
   SpreadsheetApp.getUi() // Or DocumentApp or SlidesApp or FormApp.

@@ -1,6 +1,6 @@
 
 function GetSecuritiesData(){
-  var sheet = getSheet("Securities");
+  var sheet = GUIFunctions.getSheet("Securities");
   sheet.clear()
   var dataSpreadsheet = SpreadsheetApp.openById(
     "156wfiWS8L99G9Yw8eI8-NHrUr6kZs1ClpiFx2qhhpAE" 

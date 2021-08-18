@@ -1,8 +1,8 @@
 //# of Active Programs per Register Servicer
 function graph1(){
   name="# of Active Programs per Register Servicer"
-  var sheet = getSheet(name)
-  var dataSheet = getSheet("Securities")
+  var sheet = GUIFunctions.getSheet(name)
+  var dataSheet = GUIFunctions.getSheet("Securities")
   sheet.clear()
   var filters = [
     {name:"Status",
@@ -30,8 +30,8 @@ function graph1(){
 //List of Active Programs per Register Servicer
 function graph2(){
   name ="List of Active Programs per Register Servicer"
-  var sheet = getSheet(name)
-  var dataSheet = getSheet("Securities")
+  var sheet = GUIFunctions.getSheet(name)
+  var dataSheet = GUIFunctions.getSheet("Securities")
   sheet.clear()
 
   var filters = [
@@ -70,9 +70,9 @@ function graph2(){
 
 function SecuritiesPerProgram(type,yaxis,legend,customFunctions){
   title = `${type} per Program`
-  date = getLatestDate()
-  var sheet = getSheet(title)
-  var dataSheet = getSheet("Securities")
+  date = GUIFunctions.getLatestDate()
+  var sheet = GUIFunctions.getSheet(title)
+  var dataSheet = GUIFunctions.getSheet("Securities")
   sheet.clear()
   valueNames = []
   filters=[]
@@ -128,12 +128,12 @@ function graph5(){
 //# of Approved Amount per program
 function graph6(){
   var name = "# of Headroom Threshold and Amount SEC Approved per program"
-  var sheet = getSheet(name)
-  var dataSheet = getSheet("Securities")
+  var sheet = GUIFunctions.getSheet(name)
+  var dataSheet = gGUIFunctions.etSheet("Securities")
   sheet.clear()
 
   //GET Latest Date
-  date = GUIFunctions.DateInStringFormat(getLatestDate())
+  date = GUIFunctions.DateInStringFormat(GUIFunctions.getLatestDate())
 
   //Create a pivot table for each ticker's amount outstanding, headroom, and sec approved but only show the latest date in the data
   var filters = [
