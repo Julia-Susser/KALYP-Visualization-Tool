@@ -19,7 +19,11 @@ function graph1(){
   ]
   createPivotTable(dataSheet,sheet,rowNames=rowNames, valueNames=valueNames, filters=filters, columnNames=columnNames)
   var chartType = Charts.ChartType.LINE
-  var chart = createChart(sheet,name,"Register Servicer","Number of Programs",chartType,numHeaders=2)
+  chartParams = {
+    title:"# of Active Programs Per Servicer",
+    numHeaders:2,
+  }
+  var chart = createChart(sheet,chartType,chartParams=chartParams)
   createNewPage(name, chart)
 }
 
@@ -41,94 +45,81 @@ function graph2(){
   createPivotTable(dataSheet,sheet,rowNames=rowNames,valueNames=[],filters=filters)
   
   //This reorganizes the data values from the pivot table so that each servicer is side by side with all of the tickers for the table
-  var dataValues = sheet.getDataRange().getValues()
+  var dataValues = sheet.getDataRange().getValues().splice(1)
+
   tickers = []
-  servicers = []
+  servicers = [["Servicer","Tickers"]]
   servicer = null
   dataValues.map(value => {
     newServicer = value[0]
     ticker = value[1]
     if (newServicer != ""){
       if (servicer != null){
-        servicers.push([servicer,tickers])
+        servicers.push(["",tickers])
       }
       tickers = []
       servicer = newServicer
     }
     tickers.push(ticker)
   })
-  servicers.push([servicer,tickers])
+  servicers.push(["",tickers])
 
   createNewPage(name, chart=null, table=servicers)
 }
 
 
-function graph3(){
-  name="# of Shares Outstanding per program"
-  var sheet = getSheet(name)
+function SecuritiesPerProgram(type,yaxis,legend,customFunctions){
+  title = `${type} per Program`
+  date = getLatestDate()
+  var sheet = getSheet(title)
   var dataSheet = getSheet("Securities")
   sheet.clear()
-  valueNames = [
-    {name:"Amount Outstanding",summarizeFunction:"AVERAGE"}
-  ]
+  valueNames = []
+  filters=[]
   rowNames = [
     {name:"Ratio Effective Date"}
   ]
   columnNames = [
     {name:"Ticker"}
   ]
-  createPivotTable(dataSheet,sheet,rowNames=rowNames, valueNames=valueNames,filters=[],columnNames=columnNames)
+  createPivotTable(dataSheet,sheet,rowNames=rowNames, valueNames=valueNames,filters=filters,columnNames=columnNames,customFunctions=customFunctions)
   var chartType = Charts.ChartType.LINE
-  var chart = createChart(sheet,name,"Time","Amount",chartType,numHeader=2)
-  createNewPage(name, chart)
+  chartParams = {
+    verticalAxisTitle:yaxis,
+    numHeaders:2,
+    legendVisible:legend
+  }
+
+  var chart = createChart(sheet,chartType,chartParams)
+  createNewPage(title, chart)
+}
+
+function graph3(){
+  customFunctions = [
+    {name:"Amount Outstanding",
+    customFunction:"='Amount Outstanding'",
+    summarizeFunction:"CUSTOM"},
+  ]
+  SecuritiesPerProgram(type="# of Shares Outstanding",yaxis="",legend=true,customFunctions)
 }
 
 function graph4(){
-  name="# of Headroom per Program"
-  var sheet = getSheet(name)
-  var dataSheet = getSheet("Securities")
-  sheet.clear()
-  
   customFunctions = [
     {name:"Headroom",
     customFunction:"='Amount SEC approved'-'Amount Outstanding'",
     summarizeFunction:"CUSTOM"},
     ]
-  rowNames = [
-    {name:"Ratio Effective Date"}
-  ]
-  columnNames = [
-    {name:"Ticker"}
-  ]
-  createPivotTable(dataSheet,sheet,rowNames=rowNames, valueNames=[],filters=[],columnNames=columnNames,customFunctions=customFunctions)
-  var chartType = Charts.ChartType.LINE
-  chartName="# of Headroom per Program"
-  var chart = createChart(sheet,name,"Ticker","Amount",chartType,numHeaders=2)
-  createNewPage(name, chart)
+  SecuritiesPerProgram(type="# of Headroom",yaxis="# of Headroom",legend=false,customFunctions)
 }
 
 
 function graph5(){
-  name="% Headroom Factor per program"
-  var sheet = getSheet(name)
-  var dataSheet = getSheet("Securities")
-  sheet.clear()
-
   customFunctions = [
     {name:"Headroom",
     customFunction:"=('Amount SEC approved'-'Amount Outstanding')/'Amount SEC approved'*100",
     summarizeFunction:"CUSTOM"},
     ]
-  rowNames = [
-    {name:"Ratio Effective Date"}
-  ]
-  columnNames = [
-    {name:"Ticker"}
-  ]
-  createPivotTable(dataSheet,sheet,rowNames=rowNames, valueNames=[],filters=[],columnNames=columnNames,customFunctions=customFunctions)
-  var chartType = Charts.ChartType.LINE
-  var chart = createChart(sheet,name,"Ticker","Amount",chartType,numHeaders=2)
-  createNewPage(name, chart)
+  SecuritiesPerProgram(type=type="% Headroom Factor",yaxis="% Headroom Factor",legend=false,customFunctions)
 }
 
 
@@ -142,9 +133,7 @@ function graph6(){
   sheet.clear()
 
   //GET Latest Date
-  dataSheet.sort(13, false);
-  date = dataSheet.getRange('M2').getValue()
-  date = DateInStringFormat(date)
+  date = DateInStringFormat(getLatestDate())
 
   //Create a pivot table for each ticker's amount outstanding, headroom, and sec approved but only show the latest date in the data
   var filters = [
@@ -152,6 +141,12 @@ function graph6(){
     visibleValues:[date]}
     ]
   customFunctions = [
+    {name:"Amount Outstanding",
+    customFunction:"='Amount Outstanding'",
+    summarizeFunction:"CUSTOM"},
+    {name:"Amount SEC Approved",
+    customFunction:"='Amount SEC approved'",
+    summarizeFunction:"CUSTOM"},
     {name:"Headroom",
     customFunction:"='Amount SEC approved'-'Amount Outstanding'",
     summarizeFunction:"CUSTOM"},
@@ -165,38 +160,31 @@ function graph6(){
     customFunction:"='Amount SEC approved'-'Amount SEC approved'*.7",
     summarizeFunction:"CUSTOM"}
     ]
-  valueNames = [
-    {name:"Amount Outstanding",summarizeFunction:"AVERAGE"},
-    {name:"Amount SEC approved",summarizeFunction:"AVERAGE"}
-  ]
+  valueNames = []
   rowNames = [
     {name:"Ticker"}
   ]
 
   createPivotTable(dataSheet,sheet,rowNames=rowNames,valuesNames=valueNames,filters=filters,columns=[],customFunctions=customFunctions)
   
-  values = sheet.getRange(1,1,sheet.getLastRow(),sheet.getLastColumn()-1).getValues()
+  values = sheet.getRange(1,1,sheet.getLastRow(),sheet.getLastColumn()-1).getValues().splice(1)
 
-  var chartType = Charts.ChartType.COLUMN
-  var ranges = ["A:B","F:F","G:G"]
-  var chart = createChart(sheet,name,"Ticker","Amount",chartType,numHeaders=1,ranges=ranges) // columns 1,2,3,7
+  var chartType = Charts.ChartType.BAR
+  chartParams = {
+    verticallabels:false,
+    stacked:true,
+    ranges:["A:B","F:F","G:G"]
+  }
+  var chart = createChart(sheet,chartType,chartParams) 
+  console.log(chart)
   createNewPage(name,chart=chart,table=values)
   
   
 }
 
 
-function DateInStringFormat(date){
-  month = parseInt(date.toISOString().substring(5,7))
-  day = parseInt(date.toISOString().substring(8,10))
-  year = date.toISOString().substring(0,4)
-  date = month+'/'+day+'/'+year
-  return date
-}
-  // var spreadsheet = SpreadsheetApp.getActive();
-  // spreadsheet.getRange('Z3').activate()
-  // .setFormula('=FILTER(A2:N26, M2:M26 = M2)');
-  //values = sheet.getDataRange().getValues()
+
+
 
 
 

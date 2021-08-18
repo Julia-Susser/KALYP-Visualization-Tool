@@ -7,19 +7,18 @@ function graph6(){}
 
 function slideData(name){
   var data = {
-  "# of Active Programs per Register Servicer": {page:1,chart:{left: 200, top: 70, height: 340, width: 400}},
-  "List of Active Programs per Register Servicer":{page:1,table:{left: 10, top: 70, height: 300, width: 150}},
-  "# of Shares Outstanding per program":{page:2,chart:{left: 10, top: -50, height: 500, width: 300}},
-  "# of Headroom per Program":{page:2,chart:{left: 320, top: -150, height: 500, width: 300}},
-  "% Headroom Factor per program":{page:2,chart:{left: 320, top: 150, height: 300, width: 300}},
+  "# of Active Programs per Register Servicer": {page:1,chart:{left: 1.58, top: 1.22, height: 4.04, width: 6.54}},
+  "List of Active Programs per Register Servicer":{page:1,table:{left: 6.51, top: 1.28, height: 1.61, width: 2.84,fontSize:12}},
+  "# of Shares Outstanding per Program":{page:2,chart:{left: 0.72, top: 1.37, height: 3.48, width: 4.59}},
+  "# of Headroom per Program":{page:2,chart:{left: 5.8, top: 3.17, height: 1.77, width: 2.98}},
+  "% Headroom Factor per Program":{page:2,chart:{left: 5.8, top: 1.37, height: 1.77, width: 2.98}},
   "# of Headroom Threshold and Amount SEC Approved per program":
   { page:3,
-  chart:{left: 350, top: 80, height: 300, width: 350},
-  table:{left: 40, top: 80, height: 50, width: 250}}
+  chart:{left: 3.81, top: 1.25, height: 3.78, width: 6.11},
+  table:{left: 0.86, top: 1.53, height: 3.01, width: 3.15,fontSize:5}}
 };
   return data[name]
 }
-
 function getPresentation(){
   return SlidesApp.openById("1gOuctw3DUeDSEkoi9Y7Lo1Ih1Ty21UIDi291oFGTWKo")
 }
@@ -28,17 +27,10 @@ function removeChartAndTable(name,slides){
   //Go through each slide and remove the chart or table if it has the same name as the one inputted. This is so multiple graphs and tables are not put on the slide. Keep in mind that you can name tables
   for (var i=0; i<slides.length; i++){
     slide = slides[i]
-    tables = slide.getTables()
-    tables.map((table)=>{
-      if (table.getTitle()===name){
-        table.remove()
-      }
-    })
-
-    charts = slide.getSheetsCharts()
-    charts.map((chart)=>{
-      if (chart.getTitle()===name){
-        chart.remove()
+    elements = slide.getPageElements()
+    elements.map((element)=>{
+      if (element.getTitle()===name){
+        element.remove()
       }
     })
 
@@ -52,7 +44,6 @@ function removeChartAndTable(name,slides){
     
   }
 }
-
 function createNewPage(name,chart=null,table=null){
   var slides = getPresentation().getSlides()
   indx = slideData(name).page
@@ -69,12 +60,17 @@ function createNewPage(name,chart=null,table=null){
 
 function addChartToSlides(chart,slide,name){
   var data = slideData(name).chart
-  slide.insertSheetsChart(
-      chart,
-      data.left,
-      data.top,
-      data.width,
-      data.height); 
+  console.log(data.top)
+  chart = slide.insertSheetsChart(
+      chart)
+    
+  chart = chart
+    .setLeft(data.left*72)
+    .setTop(data.top*72)
+    .setHeight(data.height*72)
+    .setWidth(data.width*72);
+  chart.sendToBack()
+  chart.setTitle(name)
   return chart  
 }
 
@@ -82,20 +78,24 @@ function addTableToSlide(values,slide,name){
   var data = slideData(name).table
   var rows = values.length;
   var columns = values[0].length;
-  table = slide.insertTable(rows,columns,0,0,data.width,data.height)
+  table = slide.insertTable(rows,columns,0,0,data.width*72,data.height*72)
   for (var r = 0; r < rows; r++) {
     for (var c = 0; c < columns; c++) {
       cell = table.getCell(r, c)
       cell.getText().setText(values[r][c]);
+      //cell.getFill().setSolidFill(100,100,100,.5)
       if (values[r][c]!=""){
-        cell.getText().getTextStyle().setFontSize(10)
+        cell.getText().getTextStyle().setFontSize(data.fontSize)
       }
     }
   }
   table.setTop(data.top)
-  table.setLeft(data.left)
+  table.bringToFront()
+  table.setLeft(data.left*72)
+  table.setTop(data.top*72)
   table.setTitle(name)
   return table
 }
+
 
 

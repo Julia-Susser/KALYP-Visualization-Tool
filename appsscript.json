@@ -40,6 +40,12 @@
     }, {
       "menuName": "Custom Func",
       "functionName": "CustomFunc"
+    }, {
+      "menuName": "sorttt",
+      "functionName": "sorttt"
+    }, {
+      "menuName": "how to change chart 1",
+      "functionName": "howtochangechart1"
     }]
   }
 }

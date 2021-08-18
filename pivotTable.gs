@@ -4,7 +4,7 @@ function createPivotTable(dataSheet,pivotTableSheet,rowNames=[], valuesNames=[],
   pivotTable = pivotTableSheet.getRange('A1').createPivotTable(sourceData);
   
   for (var i=0;i<valuesNames.length;i++){
-    value = getColIndxFromName(dataSheet,valuesNames[i].name)+1
+    value = getColIndxFromName(dataSheet,valuesNames[i].name)
     sumFunc = valuesNames[i].summarizeFunction
     pivotValue = pivotTable.addPivotValue(value, summarizeFunctions(sumFunc));
   }
@@ -18,13 +18,13 @@ function createPivotTable(dataSheet,pivotTableSheet,rowNames=[], valuesNames=[],
   }
 
   for (var i=0;i<rowNames.length;i++){
-    row = getColIndxFromName(dataSheet,rowNames[i].name)+1
+    row = getColIndxFromName(dataSheet,rowNames[i].name)
     pivotGroup = pivotTable.addRowGroup(row);
     pivotGroup.showTotals(false);
   }
 
   for (var i=0;i<columnNames.length;i++){
-    col = getColIndxFromName(dataSheet,columnNames[i].name)+1
+    col = getColIndxFromName(dataSheet,columnNames[i].name)
     pivotGroup = pivotTable.addColumnGroup(col);
     pivotGroup.showTotals(false);
   }
@@ -33,7 +33,7 @@ function createPivotTable(dataSheet,pivotTableSheet,rowNames=[], valuesNames=[],
     criteria = SpreadsheetApp.newFilterCriteria()
     .setVisibleValues(filters[i].visibleValues)
     .build();
-    pivotTable.addFilter(getColIndxFromName(dataSheet,filters[i].name)+1, criteria);
+    pivotTable.addFilter(getColIndxFromName(dataSheet,filters[i].name), criteria);
   }
   
 }

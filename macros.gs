@@ -171,3 +171,74 @@ function CustomFunc() {
   pivotValue.summarizeBy(SpreadsheetApp.PivotTableSummarizeFunction.CUSTOM);
   pivotGroup = pivotTable.addRowGroup(4);
 };
+
+function sorttt() {
+  var spreadsheet = SpreadsheetApp.getActive();
+  spreadsheet.getRange('M1').activate();
+  spreadsheet.getActiveSheet().sort(13, false);
+};
+
+function howtochangechart1() {
+  var spreadsheet = SpreadsheetApp.getActive();
+  spreadsheet.getRange('K15').activate();
+  var sheet = spreadsheet.getActiveSheet();
+  var charts = sheet.getCharts();
+  var chart = charts[charts.length - 1];
+  sheet.removeChart(chart);
+  chart = sheet.newChart()
+  .asLineChart()
+  .addRange(spreadsheet.getRange('A1:D202'))
+  .setMergeStrategy(Charts.ChartMergeStrategy.MERGE_COLUMNS)
+  .setTransposeRowsAndColumns(false)
+  .setNumHeaders(2)
+  .setHiddenDimensionStrategy(Charts.ChartHiddenDimensionStrategy.IGNORE_COLUMNS)
+  .setOption('bubble.stroke', '#000000')
+  .setOption('useFirstColumnAsDomain', true)
+  .setOption('legend.position', 'right')
+  .setOption('isStacked', 'false')
+  .setOption('title', '# of Active Programs per Register Servicer')
+  .setOption('annotations.domain.textStyle.color', '#808080')
+  .setOption('textStyle.color', '#000000')
+  .setOption('legend.textStyle.color', '#1a1a1a')
+  .setOption('titleTextStyle.color', '#757575')
+  .setOption('annotations.total.textStyle.color', '#808080')
+  .setXAxisTitle('Date since Inception')
+  .setOption('hAxis.textStyle.color', '#000000')
+  .setOption('hAxis.titleTextStyle.color', '#000000')
+  .setYAxisTitle('Number of Programs')
+  .setOption('vAxes.0.textStyle.color', '#000000')
+  .setOption('vAxes.0.titleTextStyle.color', '#000000')
+  .setPosition(5, 5, 0, 0)
+  .build();
+  sheet.insertChart(chart);
+  charts = sheet.getCharts();
+  chart = charts[charts.length - 1];
+  sheet.removeChart(chart);
+  chart = sheet.newChart()
+  .asLineChart()
+  .addRange(spreadsheet.getRange('A1:D202'))
+  .setMergeStrategy(Charts.ChartMergeStrategy.MERGE_COLUMNS)
+  .setTransposeRowsAndColumns(false)
+  .setNumHeaders(2)
+  .setHiddenDimensionStrategy(Charts.ChartHiddenDimensionStrategy.IGNORE_COLUMNS)
+  .setOption('bubble.stroke', '#000000')
+  .setOption('useFirstColumnAsDomain', true)
+  .setOption('legend.position', 'right')
+  .setOption('isStacked', 'false')
+  .setOption('title', '# of Active Programs per Register Servicer')
+  .setOption('annotations.domain.textStyle.color', '#808080')
+  .setOption('textStyle.color', '#000000')
+  .setOption('legend.textStyle.fontSize', 18)
+  .setOption('legend.textStyle.color', '#1a1a1a')
+  .setOption('titleTextStyle.color', '#757575')
+  .setOption('annotations.total.textStyle.color', '#808080')
+  .setXAxisTitle('Date since Inception')
+  .setOption('hAxis.textStyle.color', '#000000')
+  .setOption('hAxis.titleTextStyle.color', '#000000')
+  .setYAxisTitle('Number of Programs')
+  .setOption('vAxes.0.textStyle.color', '#000000')
+  .setOption('vAxes.0.titleTextStyle.color', '#000000')
+  .setPosition(5, 5, 0, 0)
+  .build();
+  sheet.insertChart(chart);
+};
