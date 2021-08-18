@@ -12,19 +12,19 @@ function graph1(){
     {name:"Ticker",summarizeFunction:"COUNTUNIQUE"}
   ]
   rowNames = [
-    {name:"Ratio Effective Date"}
+    {name:"Report Date"}
   ]
   columnNames = [
     {name:"Register Servicer"}
   ]
-  createPivotTable(dataSheet,sheet,rowNames=rowNames, valueNames=valueNames, filters=filters, columnNames=columnNames)
+  GUIFunctions.createPivotTable(dataSheet,sheet,rowNames=rowNames, valueNames=valueNames, filters=filters, columnNames=columnNames)
   var chartType = Charts.ChartType.LINE
   chartParams = {
     title:"# of Active Programs Per Servicer",
     numHeaders:2,
   }
-  var chart = createChart(sheet,chartType,chartParams=chartParams)
-  createNewPage(name, chart)
+  var chart = GUIFunctions.createChart(sheet,chartType,chartParams=chartParams)
+  GUIFunctions.createNewPage(name, chart)
 }
 
 //List of Active Programs per Register Servicer
@@ -42,7 +42,7 @@ function graph2(){
     {name:"Register Servicer"},
     {name:"Ticker"}
   ]
-  createPivotTable(dataSheet,sheet,rowNames=rowNames,valueNames=[],filters=filters)
+  GUIFunctions.createPivotTable(dataSheet,sheet,rowNames=rowNames,valueNames=[],filters=filters)
   
   //This reorganizes the data values from the pivot table so that each servicer is side by side with all of the tickers for the table
   var dataValues = sheet.getDataRange().getValues().splice(1)
@@ -64,7 +64,7 @@ function graph2(){
   })
   servicers.push([servicer,tickers])
 
-  createNewPage(name, chart=null, table=servicers)
+  GUIFunctions.createNewPage(name, chart=null, table=servicers)
 }
 
 
@@ -77,12 +77,12 @@ function SecuritiesPerProgram(type,yaxis,legend,customFunctions){
   valueNames = []
   filters=[]
   rowNames = [
-    {name:"Ratio Effective Date"}
+    {name:"Report Date"}
   ]
   columnNames = [
     {name:"Ticker"}
   ]
-  createPivotTable(dataSheet,sheet,rowNames=rowNames, valueNames=valueNames,filters=filters,columnNames=columnNames,customFunctions=customFunctions)
+  GUIFunctions.createPivotTable(dataSheet,sheet,rowNames=rowNames, valueNames=valueNames,filters=filters,columnNames=columnNames,customFunctions=customFunctions)
   var chartType = Charts.ChartType.LINE
   chartParams = {
     verticalAxisTitle:yaxis,
@@ -90,15 +90,15 @@ function SecuritiesPerProgram(type,yaxis,legend,customFunctions){
     legendVisible:legend
   }
 
-  var chart = createChart(sheet,chartType,chartParams)
-  createNewPage(title, chart)
+  var chart = GUIFunctions.createChart(sheet,chartType,chartParams)
+  GUIFunctions.createNewPage(title, chart)
 }
 
 function graph3(){
   customFunctions = [
     {name:"Amount Outstanding",
     customFunction:"='Amount Outstanding'",
-    summarizeFunction:"CUSTOM"},
+    summarizeFunction:"CUSTOM"}
   ]
   SecuritiesPerProgram(type="# of Shares Outstanding",yaxis="",legend=true,customFunctions)
 }
@@ -107,7 +107,7 @@ function graph4(){
   customFunctions = [
     {name:"Headroom",
     customFunction:"='Amount SEC approved'-'Amount Outstanding'",
-    summarizeFunction:"CUSTOM"},
+    summarizeFunction:"CUSTOM"}
     ]
   SecuritiesPerProgram(type="# of Headroom",yaxis="# of Headroom",legend=false,customFunctions)
 }
@@ -117,9 +117,9 @@ function graph5(){
   customFunctions = [
     {name:"Headroom",
     customFunction:"=('Amount SEC approved'-'Amount Outstanding')/'Amount SEC approved'*100",
-    summarizeFunction:"CUSTOM"},
+    summarizeFunction:"CUSTOM"}
     ]
-  SecuritiesPerProgram(type=type="% Headroom Factor",yaxis="% Headroom Factor",legend=false,customFunctions)
+  SecuritiesPerProgram(type="% Headroom Factor",yaxis="% Headroom Factor",legend=false,customFunctions)
 }
 
 
@@ -133,11 +133,11 @@ function graph6(){
   sheet.clear()
 
   //GET Latest Date
-  date = DateInStringFormat(getLatestDate())
+  date = GUIFunctions.DateInStringFormat(getLatestDate())
 
   //Create a pivot table for each ticker's amount outstanding, headroom, and sec approved but only show the latest date in the data
   var filters = [
-    {name:"Ratio Effective Date",
+    {name:"Report Date",
     visibleValues:[date]}
     ]
   customFunctions = [
@@ -165,7 +165,7 @@ function graph6(){
     {name:"Ticker"}
   ]
 
-  createPivotTable(dataSheet,sheet,rowNames=rowNames,valuesNames=valueNames,filters=filters,columns=[],customFunctions=customFunctions)
+  GUIFunctions.createPivotTable(dataSheet,sheet,rowNames=rowNames,valuesNames=valueNames,filters=filters,columns=[],customFunctions=customFunctions)
   
   values = sheet.getRange(1,1,sheet.getLastRow(),sheet.getLastColumn()-1).getValues().splice(1)
 
@@ -175,9 +175,8 @@ function graph6(){
     stacked:true,
     ranges:["A:B","F:F","G:G"]
   }
-  var chart = createChart(sheet,chartType,chartParams) 
-  console.log(chart)
-  createNewPage(name,chart=chart,table=values)
+  var chart = GUIFunctions.createChart(sheet,chartType,chartParams) 
+  GUIFunctions.createNewPage(name,chart=chart,table=values)
   
   
 }

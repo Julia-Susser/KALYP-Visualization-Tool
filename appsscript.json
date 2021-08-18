@@ -1,51 +1,30 @@
 {
   "timeZone": "America/Los_Angeles",
   "dependencies": {
-    "enabledAdvancedServices": [{
-      "userSymbol": "Sheets",
-      "serviceId": "sheets",
-      "version": "v4"
-    }]
+    "enabledAdvancedServices": [
+      {
+        "userSymbol": "Sheets",
+        "serviceId": "sheets",
+        "version": "v4"
+      }
+    ],
+    "libraries": [
+      {
+        "userSymbol": "GUIFunctions",
+        "version": "0",
+        "libraryId": "1xE_UHD3jvGf8kVhxTdqOPOqEHjhlDVTAjihvDYLZfpwcDASTOf8y_6jv",
+        "developmentMode": true
+      }
+    ]
   },
   "exceptionLogging": "STACKDRIVER",
   "runtimeVersion": "V8",
   "sheets": {
-    "macros": [{
-      "menuName": "How to Stack",
-      "functionName": "HowtoStack"
-    }, {
-      "menuName": "percenting",
-      "functionName": "percenting"
-    }, {
-      "menuName": "Pivot table Date",
-      "functionName": "PivottableDate"
-    }, {
-      "menuName": "My Macro",
-      "functionName": "MyMacro"
-    }, {
-      "menuName": "Filter",
-      "functionName": "Filter"
-    }, {
-      "menuName": "divide thing",
-      "functionName": "dividething"
-    }, {
-      "menuName": "divide thingy 2",
-      "functionName": "dividethingy2"
-    }, {
-      "menuName": "calculated field",
-      "functionName": "calculatedfield"
-    }, {
-      "menuName": "max date",
-      "functionName": "maxdate"
-    }, {
-      "menuName": "Custom Func",
-      "functionName": "CustomFunc"
-    }, {
-      "menuName": "sorttt",
-      "functionName": "sorttt"
-    }, {
-      "menuName": "how to change chart 1",
-      "functionName": "howtochangechart1"
-    }]
+    "macros": [
+      {
+        "menuName": "how to change chart 1",
+        "functionName": "howtochangechart1"
+      }
+    ]
   }
 }
