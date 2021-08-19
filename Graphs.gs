@@ -69,7 +69,6 @@ function SecuritiesPerProgram(type,customFunctions){
   title = `${type} per Program`
   var sheet = GUIFunctions.getSheet(title)
   var dataSheet = GUIFunctions.getSheet("Securities")
-  date = GUIFunctions.getLatestDate(dataSheet)
   sheet.clear()
   valueNames = []
   filters=[]
@@ -163,7 +162,7 @@ function graph6(){
 
   var chartType = Charts.ChartType.BAR
   chartParams = GUIFunctions.getTypeDataForName(name,"chart")[0]
-  chartParams["ranges"] = ["A:B","F:F","G:G"]
+  chartParams["ranges"] = ["A:B","F:F","G:G"] // only add amount oustanding, threshold headroom, and headroom above threshold to chart.
   var chart = GUIFunctions.createChart(sheet,chartType,chartParams) 
   GUIFunctions.createNewPage(name,chart=chart,table=values)
   

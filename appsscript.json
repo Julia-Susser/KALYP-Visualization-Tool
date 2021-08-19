@@ -16,7 +16,8 @@
   "sheets": {
     "macros": [{
       "menuName": "how to change chart 1",
-      "functionName": "howtochangechart1"
+      "functionName": "howtochangechart1",
+      "defaultShortcut": "Ctrl+Alt+Shift+2"
     }]
   }
 }
