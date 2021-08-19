@@ -35,8 +35,7 @@ function getSheet(name){
 
 
 
-function getLatestDate(){
-  var dataSheet = getSheet("Transactions")
+function getLatestDate(dataSheet){
   reportDateChar = getCharFromName(dataSheet,"Report Date")
   dataSheet.sort(getColIndxFromName(dataSheet,"Report Date"), false);
   date = dataSheet.getRange(reportDateChar+'2').getValue()

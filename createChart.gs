@@ -31,11 +31,10 @@ function createChart(sheet,chartType,chartParams={}){
     numHeaders = chartParams.numHeaders
   }
   chart.setNumHeaders(numHeaders)
-  
-  if (chartParams.verticalaxis!=undefined){
+  if (chartParams.verticalmin!=undefined){
     chart = chart
     .asBarChart()
-    chart.setRange(chartParams.verticalaxis.min,chartParams.verticalaxis.max)
+    chart.setRange(chartParams.verticalmin,chartParams.verticalmax)
   }
   if (chartParams.verticallabels!=undefined){
     chart.setOption('vAxis',{ textPosition: 'none' })
@@ -58,9 +57,9 @@ function createChart(sheet,chartType,chartParams={}){
   if (chartParams.legendVisible===false){
     chart.setOption('legend.position','none')
   }
-  if (chartParams.size!=undefined){
-    chart.setOption('height',chartParams.size.height)
-    chart.setOption('width',chartParams.size.width)
+  if (chartParams.chartOriginalHeight!=undefined){
+    chart.setOption('height',chartParams.chartOriginalHeight)
+    chart.setOption('width',chartParams.chartOriginalWidth)
   }
   if (chartParams.legendFontSize!=undefined){
     chart.setOption('legend.textStyle.fontSize',chartParams.legendFontSize)
