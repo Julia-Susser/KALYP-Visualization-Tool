@@ -7,8 +7,8 @@ function TransactionsByProgram(type,statuses,specificPendingDays){
   var sheet = GUIFunctions.getSheet(title)
   var dataSheet = GUIFunctions.getSheet("Transactions")
   sheet.clear()
-  date = GUIFunctions.getLatestDate(dataSheet)
-  dates = GUIFunctions.last10Days(date)
+  date = GUIFunctions.getLatestDate(dataSheet) // latest report date after sorting data
+  dates = GUIFunctions.last10Days(date) // the last 10 days only week das
   var filters = [
     {name:"Status",
     visibleValues:statuses},
@@ -34,20 +34,26 @@ function TransactionsByProgram(type,statuses,specificPendingDays){
   GUIFunctions.createPivotTable(dataSheet,sheet,rowNames=rowNames, valueNames=valueNames, filters=filters, columnNames=columnNames)
   var chartType = Charts.ChartType.BAR
 
+  //It is a table on the dashboard with all of the dates and some graphs may not have all of the dates. Therefore, each graph needs to have all ten days in order, so I add the dates not automatically in the pivot table onto the sheet here. First, I get the dates already added and the dates that need to be added. 
   newdates = sheet.getRange("A3:A").getValues().map(value => {return value[0]}).filter(value => {return value != ""})
   newdates = newdates.map(date => {return GUIFunctions.DateInStringFormat(date)})
   extradates = dates.filter(date => {return newdates.indexOf(date)===-1 }).map(date => {return [date]})
   if (extradates.length > 0){ sheet.getRange(sheet.getLastRow()+1,1,extradates.length,1).setValues(extradates) }
+  //Then I make the pivot table fixed values, and add the extra dates. Then I sort by the dates.
   cells = sheet.getDataRange().getValues()
   sheet.clear()
   sheet.getRange(1,1,cells.length,cells[0].length).setValues(cells)
   sheet.getRange(3,1,cells.length,cells[0].length).activate().sort({column: 1, ascending: true});
+  
   //yaxis = `# of transactions from ${dates[0]} to ${dates[dates.length-1]}`
 
-  if (specificPendingDays != null){verticalaxis={min:0,max:100}}else{verticalaxis=null}
   chartParams = GUIFunctions.getTypeDataForName(title,"chart")[0]
   var chart = GUIFunctions.createChart(sheet,chartType,chartParams)
+  
+  //get the dates to put in the table.
   table = newdates = sheet.getRange("A3:A").getValues().filter(value => {return value[0] != ''}).map(date => {return [GUIFunctions.DateInStringFormat(date[0])]})
+
+  //only create the table, if it is the first graph (3 to 4 days)
   if (type==="pending transactions (3 to 4 days)"){
     GUIFunctions.createNewPage(title,chart=chart,table=table)
   }else{
@@ -91,8 +97,8 @@ function TransactionsByMemberType(type, status,specificPendingDays){
   var dataSheet = GUIFunctions.getSheet("Transactions")
   sheet.clear()
   date = GUIFunctions.getLatestDate(dataSheet)
-  dates = GUIFunctions.last30Days(date)
-  if (status==="pending"){ dates = [dates[0]] }
+  dates = GUIFunctions.last30Days(date) // all thirty dates including weekends
+  if (status==="pending"){ dates = [dates[0]] } // the pending graphs only want the latest day, not the pending transactions from the past
   var filters = [
     {name:"Report Date",
     visibleValues:dates},
@@ -170,6 +176,8 @@ function TransactionsByAgeOfService(type, status, summarizeFunction){
   date = GUIFunctions.getLatestDate(dataSheet)
   dates = GUIFunctions.last30Days(date)
   if (status=="pending"){ dates = [dates[0]] }
+
+  //first create a pivot table the maximum number of pending days or maximum completion age for each reference. Therefore when grouping them by average age, I do not get repeats for each reference.
   var filters = [
     {name:"Report Date",
     visibleValues:dates},
@@ -186,7 +194,7 @@ function TransactionsByAgeOfService(type, status, summarizeFunction){
   customFunctions = [
     {name:"Type",
     customFunction:"='Type'",
-    summarizeFunction:"CUSTOM"},
+    summarizeFunction:"CUSTOM"}, // CUSTOM summarize function is just the first value
     {name:"age",
     customFunction:"='Settlement Date'-'Instruction Date'",
     summarizeFunction:"CUSTOM"}
@@ -202,6 +210,8 @@ function TransactionsByAgeOfService(type, status, summarizeFunction){
   }
 
   GUIFunctions.createPivotTable(dataSheet,sheet,rowNames=rowNames, valueNames=valueNames, filters=filters, columnNames=columnNames,customFunctions=customFunctions)
+
+  //take the previous pivot table with the age of each reference and use that create a new pivot table for the average age of each instructing party
   var filters = []
   rowNames = [
     {name:"Instructing Party"}
@@ -224,7 +234,7 @@ function TransactionsByAgeOfService(type, status, summarizeFunction){
 
   chartParams = GUIFunctions.getTypeDataForName(title,"chart")[0]
   chartParams["verticalAxisTitle"] = yaxis
-  chartParams["ranges"] = ["G:J"]
+  chartParams["ranges"] = ["G:J"] // only add this specific range into the chart
   var chart = GUIFunctions.createChart(sheet,chartType,chartParams)
   GUIFunctions.createNewPage(title,chart=chart)
 }
