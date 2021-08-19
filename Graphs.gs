@@ -34,12 +34,12 @@ function TransactionsByProgram(type,statuses,specificPendingDays){
   GUIFunctions.createPivotTable(dataSheet,sheet,rowNames=rowNames, valueNames=valueNames, filters=filters, columnNames=columnNames)
   var chartType = Charts.ChartType.BAR
 
-  //It is a table on the dashboard with all of the dates and some graphs may not have all of the dates. Therefore, each graph needs to have all ten days in order, so I add the dates not automatically in the pivot table onto the sheet here. First, I get the dates already added and the dates that need to be added. 
+  // On the dashboard, the graphs present side by side with a table of dates and no vertical axis labels. Therefore, it is crucial that each graph has all 10 days even if they are not in the pivot table. Therefore, the dates that aren’t in the pivot table are added automatically here, so that each graph has all 10. 
   newdates = sheet.getRange("A3:A").getValues().map(value => {return value[0]}).filter(value => {return value != ""})
   newdates = newdates.map(date => {return GUIFunctions.DateInStringFormat(date)})
   extradates = dates.filter(date => {return newdates.indexOf(date)===-1 }).map(date => {return [date]})
   if (extradates.length > 0){ sheet.getRange(sheet.getLastRow()+1,1,extradates.length,1).setValues(extradates) }
-  //Then I make the pivot table fixed values, and add the extra dates. Then I sort by the dates.
+  //First, I make the pivot table fixed values, and add the extra dates. Then I sort by the dates.
   cells = sheet.getDataRange().getValues()
   sheet.clear()
   sheet.getRange(1,1,cells.length,cells[0].length).setValues(cells)
@@ -50,7 +50,7 @@ function TransactionsByProgram(type,statuses,specificPendingDays){
   chartParams = GUIFunctions.getTypeDataForName(title,"chart")[0]
   var chart = GUIFunctions.createChart(sheet,chartType,chartParams)
   
-  //get the dates to put in the table.
+  //get the table of dates for the dashboard.
   table = newdates = sheet.getRange("A3:A").getValues().filter(value => {return value[0] != ''}).map(date => {return [GUIFunctions.DateInStringFormat(date[0])]})
 
   //only create the table, if it is the first graph (3 to 4 days)
@@ -74,7 +74,7 @@ function graph1(){
 
 function graph2(){
     specificPendingDays = [5,6,7,8,9]
-    TransactionsByProgram(type="pending transactions (5 or more days)",status=["pending"],specificPendingDays)
+    TransactionsByProgram(type="pending transactions (5 to 9 days)",status=["pending"],specificPendingDays)
 }
 
 function graph3(){
@@ -177,7 +177,7 @@ function TransactionsByAgeOfService(type, status, summarizeFunction){
   dates = GUIFunctions.last30Days(date)
   if (status=="pending"){ dates = [dates[0]] }
 
-  //first create a pivot table the maximum number of pending days or maximum completion age for each reference. Therefore when grouping them by average age, I do not get repeats for each reference.
+  //first create a pivot table with the maximum number of pending days or maximum completion age for each reference. Therefore when grouping them by average age, I do not get repeats for each reference.
   var filters = [
     {name:"Report Date",
     visibleValues:dates},

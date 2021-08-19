@@ -11,8 +11,7 @@ function GetTransactionsData(){
   console.log(data)
   sheet.getRange(1, 1, range.getHeight(), range.getWidth()) 
     .setValues(data);
-  
-  sheet.autoResizeColumns(1, range.getWidth());
+  PendingColumn()
 }
 
 
