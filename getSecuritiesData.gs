@@ -3,7 +3,7 @@ function GetSecuritiesData(){
   var sheet = GUIFunctions.getSheet("Securities");
   sheet.clear()
   var dataSpreadsheet = SpreadsheetApp.openById(
-    "156wfiWS8L99G9Yw8eI8-NHrUr6kZs1ClpiFx2qhhpAE" 
+    "1v9-D0tAJxmyW0b6bC_1Izy68I2Gd_AwwlDEg4OZcQI4" 
   );
   var dataSheet = dataSpreadsheet.getSheetByName("Securities");
   var range = dataSheet.getDataRange();
