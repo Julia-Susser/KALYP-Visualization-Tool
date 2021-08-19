@@ -19,10 +19,7 @@ function graph1(){
   ]
   GUIFunctions.createPivotTable(dataSheet,sheet,rowNames=rowNames, valueNames=valueNames, filters=filters, columnNames=columnNames)
   var chartType = Charts.ChartType.LINE
-  chartParams = {
-    title:"# of Active Programs Per Servicer",
-    numHeaders:2,
-  }
+  chartParams = GUIFunctions.getTypeDataForName(name,"chart")[0]
   var chart = GUIFunctions.createChart(sheet,chartType,chartParams=chartParams)
   GUIFunctions.createNewPage(name, chart)
 }
@@ -68,11 +65,11 @@ function graph2(){
 }
 
 
-function SecuritiesPerProgram(type,yaxis,legend,customFunctions){
+function SecuritiesPerProgram(type,customFunctions){
   title = `${type} per Program`
-  date = GUIFunctions.getLatestDate()
   var sheet = GUIFunctions.getSheet(title)
   var dataSheet = GUIFunctions.getSheet("Securities")
+  date = GUIFunctions.getLatestDate(dataSheet)
   sheet.clear()
   valueNames = []
   filters=[]
@@ -84,12 +81,7 @@ function SecuritiesPerProgram(type,yaxis,legend,customFunctions){
   ]
   GUIFunctions.createPivotTable(dataSheet,sheet,rowNames=rowNames, valueNames=valueNames,filters=filters,columnNames=columnNames,customFunctions=customFunctions)
   var chartType = Charts.ChartType.LINE
-  chartParams = {
-    verticalAxisTitle:yaxis,
-    numHeaders:2,
-    legendVisible:legend
-  }
-
+  chartParams = GUIFunctions.getTypeDataForName(title,"chart")[0]
   var chart = GUIFunctions.createChart(sheet,chartType,chartParams)
   GUIFunctions.createNewPage(title, chart)
 }
@@ -100,7 +92,7 @@ function graph3(){
     customFunction:"='Amount Outstanding'",
     summarizeFunction:"CUSTOM"}
   ]
-  SecuritiesPerProgram(type="# of Shares Outstanding",yaxis="",legend=true,customFunctions)
+  SecuritiesPerProgram(type="# of Shares Outstanding",customFunctions)
 }
 
 function graph4(){
@@ -109,7 +101,7 @@ function graph4(){
     customFunction:"='Amount SEC approved'-'Amount Outstanding'",
     summarizeFunction:"CUSTOM"}
     ]
-  SecuritiesPerProgram(type="# of Headroom",yaxis="# of Headroom",legend=false,customFunctions)
+  SecuritiesPerProgram(type="# of Headroom",customFunctions)
 }
 
 
@@ -119,7 +111,7 @@ function graph5(){
     customFunction:"=('Amount SEC approved'-'Amount Outstanding')/'Amount SEC approved'*100",
     summarizeFunction:"CUSTOM"}
     ]
-  SecuritiesPerProgram(type="% Headroom Factor",yaxis="% Headroom Factor",legend=false,customFunctions)
+  SecuritiesPerProgram(type="% Headroom Factor",customFunctions)
 }
 
 
@@ -129,11 +121,11 @@ function graph5(){
 function graph6(){
   var name = "# of Headroom Threshold and Amount SEC Approved per program"
   var sheet = GUIFunctions.getSheet(name)
-  var dataSheet = gGUIFunctions.etSheet("Securities")
+  var dataSheet = GUIFunctions.getSheet("Securities")
   sheet.clear()
 
   //GET Latest Date
-  date = GUIFunctions.DateInStringFormat(GUIFunctions.getLatestDate())
+  date = GUIFunctions.DateInStringFormat(GUIFunctions.getLatestDate(dataSheet))
 
   //Create a pivot table for each ticker's amount outstanding, headroom, and sec approved but only show the latest date in the data
   var filters = [
@@ -170,11 +162,8 @@ function graph6(){
   values = sheet.getRange(1,1,sheet.getLastRow(),sheet.getLastColumn()-1).getValues().splice(1)
 
   var chartType = Charts.ChartType.BAR
-  chartParams = {
-    verticallabels:false,
-    stacked:true,
-    ranges:["A:B","F:F","G:G"]
-  }
+  chartParams = GUIFunctions.getTypeDataForName(name,"chart")[0]
+  chartParams["ranges"] = ["A:B","F:F","G:G"]
   var chart = GUIFunctions.createChart(sheet,chartType,chartParams) 
   GUIFunctions.createNewPage(name,chart=chart,table=values)
   
