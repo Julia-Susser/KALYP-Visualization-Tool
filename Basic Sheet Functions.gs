@@ -22,7 +22,7 @@ function getCharFromName(sheet,name){
 }
 
 
-
+//if sheet is not defined, create a new one
 function getSheet(name){
   var ss = SpreadsheetApp.getActive()
   newSheet = ss.getSheetByName(name)
@@ -53,6 +53,7 @@ function last30Days(date){
   return listofDates
 }
 
+//last 10 days but only weekdays
 function last10Days(date){
   listofDates = []
   indx = -1
@@ -76,6 +77,8 @@ function subtractDaysFromDate(date,days){
   return newDate
 }
 
+
+//American Format
 function DateInStringFormat(date){
   var newdate = new Date(date.getTime())
   var month = parseInt(newdate.toISOString().substring(5,7))

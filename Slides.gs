@@ -3,7 +3,7 @@ function getPresentation(){
 }
 
 function removeChartAndTable(name,slides){
-  //Go through each slide and remove the chart or table if it has the same name as the one inputted. This is so multiple graphs and tables are not put on the slide. Keep in mind that you can name tables
+  //Go through each slide and remove the chart or table if it has the same name as the one inputted. This is so multiple graphs and tables are not put on the slide. Keep in mind that you can name page elements invisibly
   for (var i=0; i<slides.length; i++){
     slide = slides[i]
     elements = slide.getPageElements()
@@ -17,16 +17,16 @@ function removeChartAndTable(name,slides){
 }
 function createNewPage(name,chart=null,table=null){
   var slides = getPresentation().getSlides()
-  removeChartAndTable(name,slides)
+  removeChartAndTable(name,slides) // each chart and table has an invisible title, delete the items (through all slides) with that title
   if (chart!=null){
-    var data = getTypeDataForName(name,"chart")
-    data.forEach(chartData => {
+    var data = getTypeDataForName(name,"chart")//get the parameters from the data format page
+    data.forEach(chartData => { // if there are multiple charts with that name, create all of them according the the parameters
       var slide = slides[chartData.page]
       addChartToSlide(chart,slide,name,chartData)
     })
   }
   if (table != null){
-    var data = getTypeDataForName(name,"table")
+    var data = getTypeDataForName(name,"table") //get the parameters from the data format page
     data.forEach(tableData => {
       var slide = slides[tableData.page]
       addTableToSlide(table,slide,name,tableData)
@@ -38,7 +38,6 @@ function createNewPage(name,chart=null,table=null){
 function addChartToSlide(chart,slide,name,data){
   chart = slide.insertSheetsChart(
       chart)
-    
   chart = chart
     .setLeft(data.left*72)
     .setTop(data.top*72)
@@ -51,8 +50,7 @@ function addChartToSlide(chart,slide,name,data){
   return chart  
 }
 
-function addTableToSlide(values,slide,name){
-  var data = slideData(name).table
+function addTableToSlide(values,slide,name,data){
   var rows = values.length;
   var columns = values[0].length;
   table = slide.insertTable(rows,columns,0,0,data.width*72,data.height*72)

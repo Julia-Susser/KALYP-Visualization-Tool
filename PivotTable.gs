@@ -4,10 +4,10 @@ function createPivotTable(dataSheet,pivotTableSheet,rowNames=[], valuesNames=[],
   
   var sourceData = dataSheet.getDataRange()
   if (dataSheetRange != null){
-    var sourceData = dataSheet.getRange(dataSheetRange)
+    var sourceData = dataSheet.getRange(dataSheetRange) // source data is not the entire page
   }
   if (sheetRange != null){
-    pivotTable = pivotTableSheet.getRange(sheetRange).createPivotTable(sourceData);
+    pivotTable = pivotTableSheet.getRange(sheetRange).createPivotTable(sourceData); // start the pivot table at different point than A1
   }else{
     pivotTable = pivotTableSheet.getRange('A1').createPivotTable(sourceData);
   }

@@ -33,7 +33,7 @@ function createChart(sheet,chartType,chartParams={}){
   chart.setNumHeaders(numHeaders)
   if (chartParams.verticalmin!=undefined){
     chart = chart
-    .asBarChart()
+    .asBarChart() // you can only change axis when it is a bar or column chart set this way with .asBarChart() 
     chart.setRange(chartParams.verticalmin,chartParams.verticalmax)
   }
   if (chartParams.verticallabels!=undefined){
@@ -45,6 +45,7 @@ function createChart(sheet,chartType,chartParams={}){
   if (chartParams.verticalAxisTitle!=undefined){
     chart.setOption('vAxis',{title:chartParams.verticalAxisTitle})
   }
+  
   if (chartParams.horizontalAxisTitle!=undefined){
     chart.setOption('hAxis',{title:chartParams.horizontalAxisTitle})
   }
