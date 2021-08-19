@@ -2,12 +2,12 @@ function getSpecificPendingDays(days){
   return Array.apply(0, Array(10000)).map((element,indx) => indx+days)
 }
 
-function TransactionsByProgram(type,statuses,specificPendingDays,legendVisible){
+function TransactionsByProgram(type,statuses,specificPendingDays){
   title = `# of ${type} per Program`
   var sheet = GUIFunctions.getSheet(title)
   var dataSheet = GUIFunctions.getSheet("Transactions")
   sheet.clear()
-  date = GUIFunctions.getLatestDate()
+  date = GUIFunctions.getLatestDate(dataSheet)
   dates = GUIFunctions.last10Days(date)
   var filters = [
     {name:"Status",
@@ -45,20 +45,7 @@ function TransactionsByProgram(type,statuses,specificPendingDays,legendVisible){
   //yaxis = `# of transactions from ${dates[0]} to ${dates[dates.length-1]}`
 
   if (specificPendingDays != null){verticalaxis={min:0,max:100}}else{verticalaxis=null}
-  chartParams = {
-    stacked:true,
-    numHeaders:2,
-    verticallabels:false,
-    verticalaxis:{
-      min:0,
-      max:100
-    },
-    size:{
-      height:300,
-      width:200
-    },
-    legendVisible:legendVisible
-  }
+  chartParams = GUIFunctions.getTypeDataForName(title,"chart")[0]
   var chart = GUIFunctions.createChart(sheet,chartType,chartParams)
   table = newdates = sheet.getRange("A3:A").getValues().filter(value => {return value[0] != ''}).map(date => {return [GUIFunctions.DateInStringFormat(date[0])]})
   if (type==="pending transactions (3 to 4 days)"){
@@ -76,22 +63,22 @@ function TransactionsByProgram(type,statuses,specificPendingDays,legendVisible){
 
 function graph1(){
     specificPendingDays = [3,4]
-    TransactionsByProgram(type="pending transactions (3 to 4 days)",status=["pending"],specificPendingDays,legendVisible=false)
+    TransactionsByProgram(type="pending transactions (3 to 4 days)",status=["pending"],specificPendingDays)
 }
 
 function graph2(){
     specificPendingDays = [5,6,7,8,9]
-    TransactionsByProgram(type="pending transactions (5 or more days)",status=["pending"],specificPendingDays,legendVisible=false)
+    TransactionsByProgram(type="pending transactions (5 or more days)",status=["pending"],specificPendingDays)
 }
 
 function graph3(){
     specificPendingDays = getSpecificPendingDays(10)
-    TransactionsByProgram(type="pending transactions (10 or more days)",status=["pending"],specificPendingDays,legendVisible=false)
+    TransactionsByProgram(type="pending transactions (10 or more days)",status=["pending"],specificPendingDays)
     graphlegend()
 }
 function graphlegend(){
     specificPendingDays = [3,4]
-    TransactionsByProgram(type="pending transactions (legend)",status=["pending"],specificPendingDays,legendVisible=true)
+    TransactionsByProgram(type="pending transactions (legend)",status=["pending"],specificPendingDays)
 }
 
 
@@ -103,7 +90,7 @@ function TransactionsByMemberType(type, status,specificPendingDays){
   var sheet = GUIFunctions.getSheet(title)
   var dataSheet = GUIFunctions.getSheet("Transactions")
   sheet.clear()
-  date = GUIFunctions.getLatestDate()
+  date = GUIFunctions.getLatestDate(dataSheet)
   dates = GUIFunctions.last30Days(date)
   if (status==="pending"){ dates = [dates[0]] }
   var filters = [
@@ -133,16 +120,9 @@ function TransactionsByMemberType(type, status,specificPendingDays){
   }else{
     yaxis = `# of transactions from ${dates[dates.length-1]} to ${dates[0]}`
   }
-  chartParams = {
-    numHeaders:2,
-    verticalAxisTitle:yaxis,
-    size:{
-      height:300,
-      width:200
-    },
-    legendVisible:false,
-    legendFontSize:10
-  }
+  
+  chartParams = GUIFunctions.getTypeDataForName(title,"chart")[0]
+  chartParams["verticalAxisTitle"] = yaxis
   var chart = GUIFunctions.createChart(sheet,chartType,chartParams=chartParams)
   GUIFunctions.createNewPage(title,chart=chart)
 }
@@ -184,11 +164,10 @@ function graph11(){
 
 function TransactionsByAgeOfService(type, status, summarizeFunction){
   title = `${type} by Type and By Member`
-  console.log(title)
   var sheet = GUIFunctions.getSheet(type)
-  var dataSheet = getSheet("Transactions")
+  var dataSheet = GUIFunctions.getSheet("Transactions")
   sheet.clear()
-  date = GUIFunctions.getLatestDate()
+  date = GUIFunctions.getLatestDate(dataSheet)
   dates = GUIFunctions.last30Days(date)
   if (status=="pending"){ dates = [dates[0]] }
   var filters = [
@@ -242,17 +221,10 @@ function TransactionsByAgeOfService(type, status, summarizeFunction){
   }else{
     yaxis = `${summarizeFunction.toLowerCase()} Age (days) from ${dates[dates.length-1]} to ${dates[0]}`
   }
-  chartParams = {
-    numHeaders:2,
-    verticalAxisTitle:yaxis,
-    size:{
-      height:300,
-      width:200
-    },
-    legendVisible:false,
-    legendFontSize:10,
-    ranges: ["G:J"]
-  }
+
+  chartParams = GUIFunctions.getTypeDataForName(title,"chart")[0]
+  chartParams["verticalAxisTitle"] = yaxis
+  chartParams["ranges"] = ["G:J"]
   var chart = GUIFunctions.createChart(sheet,chartType,chartParams)
   GUIFunctions.createNewPage(title,chart=chart)
 }
